@@ -1,0 +1,12 @@
+<h2>Counter</h2>
+<p>
+  <strong data-qa="counter">{{counter | async}}</strong>
+</p>
+<p>
+  <button (click)="increment()" data-qa="incrementButton">+</button>
+  <button (click)="decrement()" data-qa="decrementButton">-</button>
+</p>
+<p>
+  <input #resetNumber type="number" value="0" data-qa="resetInput">
+  <button (click)="reset(resetNumber.value)" data-qa="resetButton">Reset</button>
+</p>
