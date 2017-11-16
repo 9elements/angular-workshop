@@ -41,12 +41,12 @@ function setup(action: Action, http: typeof mockHttp): CounterEffects {
   return TestBed.get(CounterEffects);
 }
 
-describe('SessionEffects', () => {
+describe('CounterEffects', () => {
 
   it('saves the counter value on change', () => {
-    const sessionEffects = setup(new Increment(), mockHttp);
+    const counterEffects = setup(new Increment(), mockHttp);
 
-    sessionEffects.saveOnChange$.toArray().subscribe((actions) => {
+    counterEffects.saveOnChange$.toArray().subscribe((actions) => {
       expect(actions).toEqual([
         new SavePending(),
         new SaveSuccess()
@@ -57,9 +57,9 @@ describe('SessionEffects', () => {
   });
 
   it('handles a login error', () => {
-    const sessionEffects = setup(new Increment(), mockErrorHttp);
+    const counterEffects = setup(new Increment(), mockErrorHttp);
 
-    sessionEffects.saveOnChange$.toArray().subscribe((actions) => {
+    counterEffects.saveOnChange$.toArray().subscribe((actions) => {
       expect(actions).toEqual([
         new SavePending(),
         new SaveError(apiError)
