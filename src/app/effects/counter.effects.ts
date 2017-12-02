@@ -27,10 +27,7 @@ export class CounterEffects {
     .mergeMap(([ action, state ]) =>
       Observable.of(new SavePending())
         .merge(
-          this.http.post(
-            '/assets/counter.json',
-            { counter: state.counter }
-          )
+          this.http.get(`/assets/counter.json?counter=${state.counter}`)
           .map((data) => new SaveSuccess())
           .catch((error) => Observable.of(new SaveError(error)))
         )
