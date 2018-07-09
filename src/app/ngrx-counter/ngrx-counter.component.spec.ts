@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 
 import { Decrement, Increment, Reset } from '../actions/counter.actions';
-import { CounterState } from '../reducers/counter.reducer';
 import { AppState } from '../shared/app-state';
 import { findEl } from '../shared/helpers.spec';
 import { makeMockStore } from '../spec-helpers/make-mock-store.spec-helper';
