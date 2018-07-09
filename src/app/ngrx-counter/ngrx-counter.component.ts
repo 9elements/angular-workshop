@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { Decrement, Increment, Reset } from '../actions/counter.actions';
 import { CounterState } from '../reducers/counter.reducer';
