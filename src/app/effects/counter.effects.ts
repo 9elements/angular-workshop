@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
+import { merge, Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
 import {
@@ -12,7 +12,7 @@ import {
   SaveSuccess,
 } from '../actions/counter.actions';
 import { AppState } from '../shared/app-state';
-import { SaveError } from './../actions/counter.actions';
+import { SaveError, SavePending } from './../actions/counter.actions';
 
 @Injectable()
 export class CounterEffects {
@@ -25,10 +25,13 @@ export class CounterEffects {
   saveOnChange$: Observable<CounterSaveAction> = this.actions$.pipe(
     ofType<CounterAction>(...CHANGED_TYPES),
     withLatestFrom(this.store$),
-    mergeMap(() =>
-      this.http.get('a').pipe(
-        map(() => new SaveSuccess()),
-        catchError((error) => of(new SaveError(error)))
+    mergeMap(([ _action, state ]) =>
+      merge(
+        of(new SavePending()),
+        this.http.get(`/assets/counter.json?counter=${state.counter}`).pipe(
+          map(() => new SaveSuccess()),
+          catchError((error) => of(new SaveError(error)))
+        )
       )
     )
   );
