@@ -1,8 +1,6 @@
 import { Action } from '@ngrx/store';
-import { distinctUntilChanged } from 'rxjs/operator/distinctUntilChanged';
-import { map } from 'rxjs/operator/map';
-import { pluck } from 'rxjs/operator/pluck';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { ReplaySubject } from 'rxjs';
+import { distinctUntilChanged, map, pluck } from 'rxjs/operators';
 
 export class MockStore<T> extends ReplaySubject<T> {
   // Method copied from ngrx Store:

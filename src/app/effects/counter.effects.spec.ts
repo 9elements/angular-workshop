@@ -1,20 +1,27 @@
-import { sampleTime } from 'rxjs/operator/sampleTime';
 import { TestBed } from '@angular/core/testing';
 import { Http, Response, ResponseOptions } from '@angular/http';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action, Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of, throwError } from 'rxjs';
 
-import { CounterSaveAction, Decrement, Increment, Reset, SavePending, SaveSuccess } from '../actions/counter.actions';
+import {
+  CounterSaveAction,
+  Decrement,
+  Increment,
+  Reset,
+  SavePending,
+  SaveSuccess,
+} from '../actions/counter.actions';
 import { SaveError } from './../actions/counter.actions';
 import { AppState } from './../shared/app-state';
 import { CounterEffects } from './counter.effects';
+import { toArray } from '../../../node_modules/rxjs/operators';
 
 const apiError = new Error('API error');
 
 const httpSuccessStub: Partial<Http> = {
   get(): Observable<Response> {
-    return Observable.of(
+    return of(
       new Response(
         new ResponseOptions({ status: 200, body: '' })
       )
@@ -24,7 +31,7 @@ const httpSuccessStub: Partial<Http> = {
 
 const httpErrorStub: Partial<Http> = {
   get() {
-    return Observable.throw(apiError);
+    return throwError(apiError);
   }
 };
 
@@ -35,8 +42,8 @@ function setup(action: Action, http: Partial<Http>): CounterEffects {
   TestBed.configureTestingModule({
     providers: [
       { provide: Http, useValue: http },
-      { provide: Store, useValue: Observable.of(state) },
-      provideMockActions(Observable.of(action)),
+      { provide: Store, useValue: of(state) },
+      provideMockActions(of(action)),
       CounterEffects
     ]
   });
@@ -47,13 +54,14 @@ function testSaveOnChange(
   action: Action, http: Partial<Http>, expectedActions: CounterSaveAction[]
 ) {
   const counterEffects = setup(action, http);
-  counterEffects.saveOnChange$.toArray().subscribe((actions) => {
-    expect(http.get).toHaveBeenCalledWith(
-      `/assets/counter.json?counter=${state.counter}`
-    );
-    expect(actions).toEqual(expectedActions);
-  });
-
+  counterEffects.saveOnChange$
+    .pipe(toArray())
+    .subscribe((actions) => {
+      expect(http.get).toHaveBeenCalledWith(
+        `/assets/counter.json?counter=${state.counter}`
+      );
+      expect(actions).toEqual(expectedActions);
+    });
 }
 
 describe('CounterEffects', () => {
