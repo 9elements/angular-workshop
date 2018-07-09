@@ -7,12 +7,12 @@ import { CounterState } from '../reducers/counter.reducer';
 import { AppState } from '../shared/app-state';
 
 @Component({
-  selector: 'app-counter',
-  templateUrl: './counter.component.html',
-  styleUrls: ['./counter.component.css'],
+  selector: 'app-ngrx-counter',
+  templateUrl: './ngrx-counter.component.html',
+  styleUrls: ['./ngrx-counter.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CounterComponent {
+export class NgRxCounterComponent {
 
   counter: Observable<CounterState>;
 
@@ -31,7 +31,7 @@ export class CounterComponent {
   reset(resetNumber: string) {
     const number = parseInt(resetNumber, 10);
     if (!isNaN(number)) {
-     this.store.dispatch(new Reset(number));
+      this.store.dispatch(new Reset(number));
     }
   }
 

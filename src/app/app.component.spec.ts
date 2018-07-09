@@ -12,7 +12,6 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent
-        // , CounterComponent
       ],
       schemas: [ NO_ERRORS_SCHEMA ]
     }).compileComponents();
@@ -29,8 +28,18 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it('renders a counter', () => {
-    const el = fixture.debugElement.query(By.css('app-counter'));
+  it('renders an independant counter', () => {
+    const el = fixture.debugElement.query(By.css('app-independant-counter'));
+    expect(el).toBeTruthy();
+  });
+
+  it('renders a service counter', () => {
+    const el = fixture.debugElement.query(By.css('app-service-counter'));
+    expect(el).toBeTruthy();
+  });
+
+  it('renders a NgRx counter', () => {
+    const el = fixture.debugElement.query(By.css('app-ngrx-counter'));
     expect(el).toBeTruthy();
   });
 

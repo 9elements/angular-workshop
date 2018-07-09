@@ -1,0 +1,17 @@
+<h1>Independent counter</h1>
+
+<p>
+  <strong>
+    {{ count }}
+  </strong>
+</p>
+
+<p>
+  <button (click)="increase()">+</button>
+  <button (click)="decrease()">-</button>
+</p>
+
+<p>
+  <input type="number" #input>
+  <button (click)="reset(input.value)">Reset</button>
+</p>

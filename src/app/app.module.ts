@@ -1,4 +1,3 @@
-// RxJS class methods and instance methods (operators)
 import 'rxjs/add/observable/from';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
@@ -18,14 +17,20 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppComponent } from './app.component';
-import { CounterComponent } from './counter/counter.component';
 import { CounterEffects } from './effects/counter.effects';
+import { IndependentCounterComponent } from './independent-counter/independent-counter.component';
+import { NgRxCounterComponent } from './ngrx-counter/ngrx-counter.component';
 import { reducers } from './reducers';
+import { ServiceCounterComponent } from './service-counter/service-counter.component';
+import { CounterService } from './services/counter.service';
 
+// RxJS class methods and instance methods (operators)
 @NgModule({
   declarations: [
     AppComponent,
-    CounterComponent
+    IndependentCounterComponent,
+    ServiceCounterComponent,
+    NgRxCounterComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +49,9 @@ import { reducers } from './reducers';
       maxAge: 25 // Retains last n states
     })
   ],
-  providers: [],
+  providers: [
+    CounterService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
