@@ -53,4 +53,11 @@ describe('NgRxCounterComponent', () => {
     expect(store.dispatch).toHaveBeenCalledWith(new Reset(value));
   });
 
+  it('does not dispatch a Reset action if the value is not a number', () => {
+    const value = 'lol';
+    findEl(fixture, 'reset-input').nativeElement.value = value;
+    findEl(fixture, 'reset-button').triggerEventHandler('click', null);
+    expect(store.dispatch).not.toHaveBeenCalled();
+  });
+
 });
