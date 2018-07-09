@@ -19,12 +19,12 @@ export class CounterService {
     return this.subject.asObservable();
   }
 
-  increase() {
+  increment() {
     this.count++;
     this.notify();
   }
 
-  decrease() {
+  decrement() {
     this.count--;
     this.notify();
   }

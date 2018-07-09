@@ -12,7 +12,7 @@ import {
   SaveSuccess,
 } from '../actions/counter.actions';
 import { AppState } from '../shared/app-state';
-import { SaveError, SavePending } from './../actions/counter.actions';
+import { SaveError, SavePending } from '../actions/counter.actions';
 
 @Injectable()
 export class CounterEffects {

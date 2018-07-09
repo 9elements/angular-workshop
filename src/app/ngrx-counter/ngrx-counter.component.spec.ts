@@ -1,26 +1,20 @@
-import { DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 
-import { Increment } from '../actions/counter.actions';
+import { Decrement, Increment, Reset } from '../actions/counter.actions';
 import { CounterState } from '../reducers/counter.reducer';
+import { AppState } from '../shared/app-state';
+import { findEl } from '../shared/helpers.spec';
 import { makeMockStore } from '../spec-helpers/make-mock-store.spec-helper';
-import { Decrement, Reset } from './../actions/counter.actions';
-import { AppState } from './../shared/app-state';
 import { NgRxCounterComponent } from './ngrx-counter.component';
 
 const mockState: AppState = {
-  counter: <CounterState> 5
+  counter: 5
 };
 
 describe('NgRxCounterComponent', () => {
   let fixture: ComponentFixture<NgRxCounterComponent>;
   let store: Store<AppState>;
-
-  function findEl(attribute: string): DebugElement {
-    return fixture.debugElement.query(By.css(`[data-qa="${attribute}"]`));
-  }
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -36,26 +30,26 @@ describe('NgRxCounterComponent', () => {
     fixture.detectChanges();
   }));
 
-  it('shows the counter value', () => {
-    expect(findEl('counter').nativeElement.textContent).toBe(
+  it('shows the count', () => {
+    expect(findEl(fixture, 'count').nativeElement.textContent).toBe(
       String(mockState.counter)
     );
   });
 
   it('dispatches an Increment action', () => {
-    findEl('incrementButton').triggerEventHandler('click', {});
+    findEl(fixture, 'increment-button').triggerEventHandler('click', null);
     expect(store.dispatch).toHaveBeenCalledWith(new Increment());
   });
 
   it('dispatches a Decrement action', () => {
-    findEl('decrementButton').triggerEventHandler('click', {});
+    findEl(fixture, 'decrement-button').triggerEventHandler('click', null);
     expect(store.dispatch).toHaveBeenCalledWith(new Decrement());
   });
 
   it('dispatches a Reset action', () => {
     const value = 15;
-    findEl('resetInput').nativeElement.value = value;
-    findEl('resetButton').triggerEventHandler('click', {});
+    findEl(fixture, 'reset-input').nativeElement.value = value;
+    findEl(fixture, 'reset-button').triggerEventHandler('click', null);
     expect(store.dispatch).toHaveBeenCalledWith(new Reset(value));
   });
 

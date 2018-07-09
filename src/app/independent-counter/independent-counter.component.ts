@@ -21,12 +21,12 @@ export class IndependentCounterComponent implements OnInit {
     this.count = this.startCount;
   }
 
-  increase() {
+  increment() {
     this.count++;
     this.notify();
   }
 
-  decrease() {
+  decrement() {
     this.count--;
     this.notify();
   }

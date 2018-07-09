@@ -1,13 +1,13 @@
 <h1>NgRx counter</h1>
 
 <p>
-  <strong data-qa="counter">{{counter | async}}</strong>
+  <strong data-qa="count">{{ count$ | async }}</strong>
 </p>
 <p>
-  <button (click)="increment()" data-qa="incrementButton">+</button>
-  <button (click)="decrement()" data-qa="decrementButton">-</button>
+  <button (click)="increment()" data-qa="increment-button">+</button>
+  <button (click)="decrement()" data-qa="decrement-button">-</button>
 </p>
 <p>
-  <input #resetNumber type="number" value="0" data-qa="resetInput">
-  <button (click)="reset(resetNumber.value)" data-qa="resetButton">Reset</button>
+  <input #resetNumber type="number" value="0" data-qa="reset-input">
+  <button (click)="reset(resetNumber.value)" data-qa="reset-button">Reset</button>
 </p>

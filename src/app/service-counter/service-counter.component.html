@@ -1,17 +1,15 @@
 <h1>Counter connected to the service</h1>
 
 <p>
-  <strong>
-    {{ count$ | async }}
-  </strong>
+  <strong data-qa="count">{{ count$ | async }}</strong>
 </p>
 
 <p>
-  <button (click)="increase()">+</button>
-  <button (click)="decrease()">-</button>
+  <button (click)="increment()" data-qa="increment-button">+</button>
+  <button (click)="decrement()" data-qa="decrement-button">-</button>
 </p>
 
 <p>
-  <input type="number" #input>
-  <button (click)="reset(input.value)">Reset</button>
+  <input type="number" #input data-qa="reset-input">
+  <button (click)="reset(input.value)" data-qa="reset-button">Reset</button>
 </p>

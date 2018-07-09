@@ -28,8 +28,8 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it('renders an independant counter', () => {
-    const el = fixture.debugElement.query(By.css('app-independant-counter'));
+  it('renders an independent counter', () => {
+    const el = fixture.debugElement.query(By.css('app-independent-counter'));
     expect(el).toBeTruthy();
   });
 

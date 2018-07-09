@@ -3,19 +3,19 @@ import { Http, Response, ResponseOptions } from '@angular/http';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action, Store } from '@ngrx/store';
 import { Observable, of, throwError } from 'rxjs';
+import { toArray } from 'rxjs/operators';
 
 import {
   CounterSaveAction,
   Decrement,
   Increment,
   Reset,
+  SaveError,
   SavePending,
   SaveSuccess,
 } from '../actions/counter.actions';
-import { SaveError } from './../actions/counter.actions';
-import { AppState } from './../shared/app-state';
+import { AppState } from '../shared/app-state';
 import { CounterEffects } from './counter.effects';
-import { toArray } from '../../../node_modules/rxjs/operators';
 
 const apiError = new Error('API error');
 

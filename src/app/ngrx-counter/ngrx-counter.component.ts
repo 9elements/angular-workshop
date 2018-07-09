@@ -14,10 +14,10 @@ import { AppState } from '../shared/app-state';
 })
 export class NgRxCounterComponent {
 
-  counter: Observable<CounterState>;
+  count$: Observable<CounterState>;
 
   constructor(private store: Store<AppState>) {
-    this.counter = store.select('counter');
+    this.count$ = store.select('counter');
   }
 
   increment() {
