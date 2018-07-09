@@ -1,6 +1,7 @@
 import { Observable, ReplaySubject } from 'rxjs';
 import { distinctUntilChanged, map, pluck } from 'rxjs/operators';
 
+/* istanbul ignore next */
 export class MockStore<T> extends ReplaySubject<T> {
   // Method copied from ngrx Store:
   // https://github.com/ngrx/platform/blob/master/modules/store/src/store.ts
@@ -59,7 +60,6 @@ export class MockStore<T> extends ReplaySubject<T> {
 
   // Original signature:
   // dispatch<V extends Action = Action>(action: V): void {
-  /* istanbul ignore next */
   dispatch() {
     // Do nothing here. The call is recorded using a Jasmine spy.
   }
@@ -138,6 +138,7 @@ function select<
 function select<T, K = any>(
   ...paths: string[]
 ): (source$: Observable<T>) => Observable<K>;
+/* istanbul ignore next */
 function select<T, K>(
   pathOrMapFn: ((state: T) => any) | string,
   ...paths: string[]
