@@ -7,14 +7,14 @@ import { Increment } from '../actions/counter.actions';
 import { CounterState } from '../reducers/counter.reducer';
 import { makeMockStore } from '../spec-helpers/make-mock-store.spec-helper';
 import { Decrement, Reset } from './../actions/counter.actions';
-import { CounterComponent } from './counter.component';
+import { NgRxCounterComponent } from './ngrx-counter.component';
 
 const mockState = {
   counter: <CounterState> 5
 };
 
-describe('CounterComponent', () => {
-  let fixture: ComponentFixture<CounterComponent>;
+describe('NgRxCounterComponent', () => {
+  let fixture: ComponentFixture<NgRxCounterComponent>;
   let store: Store<typeof mockState>;
 
   function findEl(attribute: string): DebugElement {
@@ -26,12 +26,12 @@ describe('CounterComponent', () => {
       providers: [
         { provide: Store, useValue: makeMockStore(mockState) }
       ],
-      declarations: [ CounterComponent ]
+      declarations: [ NgRxCounterComponent ]
     }).compileComponents();
 
     store = TestBed.get(Store);
 
-    fixture = TestBed.createComponent(CounterComponent);
+    fixture = TestBed.createComponent(NgRxCounterComponent);
     fixture.detectChanges();
   }));
 

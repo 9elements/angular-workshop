@@ -14,7 +14,7 @@ describe('ServiceCounterComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CServiceounterComponent);
+    fixture = TestBed.createComponent(ServiceCounterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
