@@ -13,7 +13,7 @@ export class CounterService {
   }
 
   // Every BehaviorSubject is an Observable and Observer.
-  // We do not to expose the Observer trait to the outside,
+  // We do not want to expose the Observer trait to the outside,
   // so we downcast the BehaviorSubject to a simple Observable only.
   getCount(): Observable<number> {
     return this.subject.asObservable();
