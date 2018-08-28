@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { CounterState } from '../reducers/counter.reducer';
 
 export const INCREMENT = '[counter] Increment';
 export const DECREMENT = '[counter] Decrement';
@@ -24,7 +25,7 @@ export class Decrement implements Action {
 export class Reset implements Action {
   readonly type = RESET;
 
-  constructor(public payload: number) {}
+  constructor(public payload: CounterState) {}
 }
 
 export class SavePending implements Action {
