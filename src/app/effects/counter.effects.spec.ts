@@ -1,8 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { Http, Response, ResponseOptions } from '@angular/http';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action, Store } from '@ngrx/store';
-import { Observable, of, throwError } from 'rxjs';
+import { from, Observable, of, throwError } from 'rxjs';
 import { toArray } from 'rxjs/operators';
 
 import {
@@ -19,17 +19,13 @@ import { CounterEffects } from './counter.effects';
 
 const apiError = new Error('API error');
 
-const httpSuccessStub: Partial<Http> = {
-  get(): Observable<Response> {
-    return of(
-      new Response(
-        new ResponseOptions({ status: 200, body: '' })
-      )
-    );
+const httpSuccessStub: Partial<HttpClient> = {
+  get<T>(): Observable<T> {
+    return of({} as T);
   }
 };
 
-const httpErrorStub: Partial<Http> = {
+const httpErrorStub: Partial<HttpClient> = {
   get() {
     return throwError(apiError);
   }
@@ -37,13 +33,23 @@ const httpErrorStub: Partial<Http> = {
 
 const state: AppState = { counter: 123456 };
 
-function setup(action: Action, http: Partial<Http>): CounterEffects {
+const incAction = new Increment();
+const decAction = new Decrement();
+const resetAction = new Reset(5);
+const pendingAction = new SavePending();
+const successAction = new SaveSuccess();
+const errorAction = new SaveError(apiError);
+
+function setup(
+  actions: Action[],
+  http: Partial<HttpClient>
+): CounterEffects {
   spyOn(http, 'get').and.callThrough();
   TestBed.configureTestingModule({
     providers: [
-      { provide: Http, useValue: http },
+      { provide: HttpClient, useValue: http },
       { provide: Store, useValue: of(state) },
-      provideMockActions(of(action)),
+      provideMockActions(from(actions)),
       CounterEffects
     ]
   });
@@ -51,16 +57,18 @@ function setup(action: Action, http: Partial<Http>): CounterEffects {
 }
 
 function testSaveOnChange(
-  action: Action, http: Partial<Http>, expectedActions: CounterSaveAction[]
+  actionsIn: Action[],
+  http: Partial<HttpClient>,
+  expectedActions: CounterSaveAction[]
 ) {
-  const counterEffects = setup(action, http);
+  const counterEffects = setup(actionsIn, http);
   counterEffects.saveOnChange$
     .pipe(toArray())
-    .subscribe((actions) => {
+    .subscribe((actionsOut) => {
       expect(http.get).toHaveBeenCalledWith(
         `/assets/counter.json?counter=${state.counter}`
       );
-      expect(actions).toEqual(expectedActions);
+      expect(actionsOut).toEqual(expectedActions);
     });
 }
 
@@ -68,33 +76,45 @@ describe('CounterEffects', () => {
 
   it('saves the counter on increment', () => {
     testSaveOnChange(
-      new Increment(),
+      [ incAction ],
       httpSuccessStub,
-      [ new SavePending(), new SaveSuccess() ]
+      [ pendingAction, successAction ]
     );
   });
 
   it('saves the counter on decrement', () => {
     testSaveOnChange(
-      new Decrement(),
+      [ decAction ],
       httpSuccessStub,
-      [ new SavePending(), new SaveSuccess() ]
+      [ pendingAction, successAction ]
     );
   });
 
   it('saves the counter on reset', () => {
     testSaveOnChange(
-      new Reset(5),
+      [ resetAction ],
       httpSuccessStub,
-      [ new SavePending(), new SaveSuccess() ]
+      [ pendingAction, successAction ]
     );
   });
 
   it('does not save the counter on server errors', () => {
     testSaveOnChange(
-      new Increment(),
+      [ incAction ],
       httpErrorStub,
-      [ new SavePending(), new SaveError(apiError) ]
+      [ pendingAction, errorAction ]
+    );
+  });
+
+  it('handles multiple failures', () => {
+    testSaveOnChange(
+      [ incAction, decAction, resetAction ],
+      httpErrorStub,
+      [
+        pendingAction, errorAction,
+        pendingAction, errorAction,
+        pendingAction, errorAction
+      ]
     );
   });
 

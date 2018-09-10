@@ -1,5 +1,5 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { merge, Observable, of } from 'rxjs';
@@ -9,13 +9,20 @@ import {
   CHANGED_TYPES,
   CounterAction,
   CounterSaveAction,
+  SaveError,
+  SavePending,
   SaveSuccess,
 } from '../actions/counter.actions';
 import { AppState } from '../shared/app-state';
-import { SaveError, SavePending } from '../actions/counter.actions';
 
 @Injectable()
 export class CounterEffects {
+
+  constructor(
+    private http: HttpClient,
+    private actions$: Actions,
+    private store$: Store<AppState>
+  ) {}
 
   /*
    * Listens for counter changes and sends the state to the server.
@@ -25,7 +32,7 @@ export class CounterEffects {
   saveOnChange$: Observable<CounterSaveAction> = this.actions$.pipe(
     ofType<CounterAction>(...CHANGED_TYPES),
     withLatestFrom(this.store$),
-    mergeMap(([ _action, state ]) =>
+    mergeMap(([ _, state ]) =>
       merge(
         of(new SavePending()),
         this.http.get(`/assets/counter.json?counter=${state.counter}`).pipe(
@@ -36,10 +43,4 @@ export class CounterEffects {
     )
   );
 
-  constructor(
-    private http: Http,
-    private actions$: Actions,
-    private store$: Store<AppState>
-  ) {
-  }
 }
