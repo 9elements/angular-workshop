@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { IndependentCounterComponent } from './independent-counter.component';
 import { start } from 'repl';
-import { findEl } from '../shared/helpers.spec';
+import { findEl, getText } from '../shared/helpers.spec';
 
 const startCount = 123;
 const newCount = 456;
@@ -12,7 +12,9 @@ describe('IndependentCounterComponent', () => {
   let fixture: ComponentFixture<IndependentCounterComponent>;
 
   function expectCount(count: number) {
-    expect(findEl(fixture, 'count').nativeElement.textContent).toBe(String(count));
+    expect(
+      getText(fixture, 'count')
+    ).toBe(String(count));
   }
 
   beforeEach(async(() => {
@@ -29,7 +31,7 @@ describe('IndependentCounterComponent', () => {
     fixture.detectChanges();
   });
 
-  it('shows the count', () => {
+  it('shows the start count', () => {
     expectCount(startCount);
   });
 

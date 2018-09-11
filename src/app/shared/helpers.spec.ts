@@ -34,3 +34,10 @@ export function findEls<T>(
 ): DebugElement[] {
   return fixture.debugElement.queryAll(By.css(`[data-qa="${qaAttribute}"]`));
 }
+
+export function getText<T>(
+  fixture: ComponentFixture<T>,
+  qaAttribute: string
+): string {
+  return findEl(fixture, qaAttribute).nativeElement.textContent;
+}
