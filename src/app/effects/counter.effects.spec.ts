@@ -1,121 +1,116 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpErrorResponse, HttpRequest } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Action, Store } from '@ngrx/store';
-import { from, Observable, of, throwError } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 import { toArray } from 'rxjs/operators';
 
-import {
-  CounterSaveAction,
-  Decrement,
-  Increment,
-  Reset,
-  SaveError,
-  SavePending,
-  SaveSuccess,
-} from '../actions/counter.actions';
+import { Decrement, Increment, Reset, SaveError, SavePending, SaveSuccess } from '../actions/counter.actions';
 import { AppState } from '../shared/app-state';
 import { CounterEffects } from './counter.effects';
 
-const apiError = new Error('API error');
+const apiErrorEvent = new ErrorEvent('API error');
 
-const httpSuccessStub: Partial<HttpClient> = {
-  get<T>(): Observable<T> {
-    return of({} as T);
-  }
+const mockState: Partial<AppState> = {
+  counter: 1
 };
 
-const httpErrorStub: Partial<HttpClient> = {
-  get() {
-    return throwError(apiError);
-  }
-};
-
-const state: AppState = { counter: 123456 };
+const expectedURL = `/assets/counter.json?counter=${mockState.counter}`;
 
 const incAction = new Increment();
 const decAction = new Decrement();
 const resetAction = new Reset(5);
 const pendingAction = new SavePending();
 const successAction = new SaveSuccess();
-const errorAction = new SaveError(apiError);
+const errorAction = new SaveError(
+  new HttpErrorResponse({
+    error: apiErrorEvent,
+    url: expectedURL,
+    status: 0,
+    statusText: ''
+  })
+);
 
-function setup(
-  actions: Action[],
-  http: Partial<HttpClient>
-): CounterEffects {
-  spyOn(http, 'get').and.callThrough();
+function expectActions(effect: Observable<Action>, actions: Action[]) {
+  effect.pipe(toArray()).subscribe(
+    (actualActions) => {
+      expect(actualActions).toEqual(actions);
+    },
+    fail
+  );
+}
+
+function setup(actions: Action | Action[]) {
   TestBed.configureTestingModule({
+    imports: [
+      HttpClientModule,
+      HttpClientTestingModule
+    ],
     providers: [
-      { provide: HttpClient, useValue: http },
-      { provide: Store, useValue: of(state) },
-      provideMockActions(from(actions)),
+      { provide: Store, useValue: of(mockState) },
+      provideMockActions(
+        from(Array.isArray(actions) ? actions : [ actions ])
+      ),
       CounterEffects
     ]
   });
-  return TestBed.get(CounterEffects);
+  const counterEffects: CounterEffects = TestBed.get(CounterEffects);
+  const httpMock: HttpTestingController = TestBed.get(HttpTestingController);
+
+  return { counterEffects, httpMock };
 }
 
-function testSaveOnChange(
-  actionsIn: Action[],
-  http: Partial<HttpClient>,
-  expectedActions: CounterSaveAction[]
-) {
-  const counterEffects = setup(actionsIn, http);
-  counterEffects.saveOnChange$
-    .pipe(toArray())
-    .subscribe((actionsOut) => {
-      expect(http.get).toHaveBeenCalledWith(
-        `/assets/counter.json?counter=${state.counter}`
-      );
-      expect(actionsOut).toEqual(expectedActions);
-    });
+function findRequest(candidateRequest: HttpRequest<any>) {
+  return (
+    candidateRequest.method === 'GET' &&
+    candidateRequest.url === expectedURL
+  );
+}
+
+function expectSave(counterEffects: CounterEffects, httpMock: HttpTestingController) {
+  expectActions(counterEffects.saveOnChange$, [
+    pendingAction,
+    successAction
+  ]);
+
+  const request = httpMock.expectOne(findRequest);
+  request.flush({});
+  httpMock.verify();
 }
 
 describe('CounterEffects', () => {
 
   it('saves the counter on increment', () => {
-    testSaveOnChange(
-      [ incAction ],
-      httpSuccessStub,
-      [ pendingAction, successAction ]
-    );
+    const { counterEffects, httpMock } = setup(incAction);
+    expectSave(counterEffects, httpMock);
   });
 
-  it('saves the counter on decrement', () => {
-    testSaveOnChange(
-      [ decAction ],
-      httpSuccessStub,
-      [ pendingAction, successAction ]
-    );
+  it('saves the counter on increment', () => {
+    const { counterEffects, httpMock } = setup(decAction);
+    expectSave(counterEffects, httpMock);
   });
 
-  it('saves the counter on reset', () => {
-    testSaveOnChange(
-      [ resetAction ],
-      httpSuccessStub,
-      [ pendingAction, successAction ]
-    );
+  it('saves the counter on Reset', () => {
+    const { counterEffects, httpMock } = setup(resetAction);
+    expectSave(counterEffects, httpMock);
   });
 
-  it('does not save the counter on server errors', () => {
-    testSaveOnChange(
-      [ incAction ],
-      httpErrorStub,
-      [ pendingAction, errorAction ]
-    );
-  });
+  it('handles an API error', () => {
+    const actions = [ incAction, incAction, incAction ];
+    const { counterEffects, httpMock } = setup(actions);
 
-  it('handles multiple failures', () => {
-    testSaveOnChange(
-      [ incAction, decAction, resetAction ],
-      httpErrorStub,
-      [
-        pendingAction, errorAction,
-        pendingAction, errorAction,
-        pendingAction, errorAction
-      ]
-    );
+    expectActions(counterEffects.saveOnChange$, [
+      pendingAction, pendingAction, pendingAction,
+      errorAction, errorAction, errorAction
+    ]);
+
+    const requests = httpMock.match(findRequest);
+    expect(requests.length).toBe(actions.length);
+    requests.forEach((request) => {
+      request.error(apiErrorEvent);
+    });
+    httpMock.verify();
   });
 
 });
