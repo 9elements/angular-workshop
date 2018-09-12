@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
@@ -13,13 +12,14 @@ import {
   SavePending,
   SaveSuccess,
 } from '../actions/counter.actions';
+import { CounterApiService } from '../services/counter-api.service';
 import { AppState } from '../shared/app-state';
 
 @Injectable()
 export class CounterEffects {
 
   constructor(
-    private http: HttpClient,
+    private counterApiService: CounterApiService,
     private actions$: Actions,
     private store$: Store<AppState>
   ) {}
@@ -35,7 +35,7 @@ export class CounterEffects {
     mergeMap(([ _, state ]) =>
       merge(
         of(new SavePending()),
-        this.http.get(`/assets/counter.json?counter=${state.counter}`).pipe(
+        this.counterApiService.saveCounter(state.counter).pipe(
           map(() => new SaveSuccess()),
           catchError((error) => of(new SaveError(error)))
         )

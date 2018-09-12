@@ -11,9 +11,9 @@ import { IndependentCounterComponent } from './independent-counter/independent-c
 import { NgRxCounterComponent } from './ngrx-counter/ngrx-counter.component';
 import { reducers } from './reducers';
 import { ServiceCounterComponent } from './service-counter/service-counter.component';
+import { CounterApiService } from './services/counter-api.service';
 import { CounterService } from './services/counter.service';
 
-// RxJS class methods and instance methods (operators)
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +39,8 @@ import { CounterService } from './services/counter.service';
     })
   ],
   providers: [
-    CounterService
+    CounterService,
+    CounterApiService
   ],
   bootstrap: [AppComponent]
 })
