@@ -1,8 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { IndependentCounterComponent } from './independent-counter.component';
-import { start } from 'repl';
 import { findEl, getText } from '../shared/helpers.spec';
+import { IndependentCounterComponent } from './independent-counter.component';
 
 const startCount = 123;
 const newCount = 456;
