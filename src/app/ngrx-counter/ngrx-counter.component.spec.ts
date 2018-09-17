@@ -27,7 +27,7 @@ describe('NgRxCounterComponent', () => {
 
     fixture = TestBed.createComponent(NgRxCounterComponent);
     fixture.detectChanges();
-  });
+  }));
 
   it('shows the count', () => {
     expect(getText(fixture, 'count')).toBe(String(mockState.counter));
