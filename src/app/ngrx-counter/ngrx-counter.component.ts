@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { Decrement, Increment, Reset } from '../actions/counter.actions';
@@ -17,7 +17,7 @@ export class NgRxCounterComponent {
   count$: Observable<CounterState>;
 
   constructor(private store: Store<AppState>) {
-    this.count$ = store.select('counter');
+    this.count$ = store.pipe(select('counter'));
   }
 
   increment() {

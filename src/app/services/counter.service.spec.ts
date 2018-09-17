@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
+import { first } from 'rxjs/operators';
 
 import { CounterService } from './counter.service';
-import { first } from 'rxjs/operators';
 
 describe('CounterService', () => {
   let counterService: CounterService;
@@ -14,19 +14,12 @@ describe('CounterService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CounterService]
+      providers: [ CounterService ]
     });
     counterService = TestBed.get(CounterService);
   });
 
   it('returns the count', (done: DoneFn) => {
-    getCount().subscribe((count) => {
-      expect(count).toEqual(0);
-      done();
-    });
-  });
-
-  it('increments the count', (done: DoneFn) => {
     getCount().subscribe((count) => {
       expect(count).toEqual(0);
       done();
@@ -43,7 +36,7 @@ describe('CounterService', () => {
 
   it('decrements the count', (done: DoneFn) => {
     counterService.decrement();
-    counterService.getCount().subscribe((count) => {
+    getCount().subscribe((count) => {
       expect(count).toEqual(-1);
       done();
     });
@@ -52,8 +45,8 @@ describe('CounterService', () => {
   it('resets the count', (done: DoneFn) => {
     const newCount = 123;
     counterService.reset(newCount);
-    counterService.getCount().subscribe((count) => {
-      expect(count).toEqual(newCount);
+    getCount().subscribe((count) => {
+      expect(count).toBe(newCount);
       done();
     });
   });

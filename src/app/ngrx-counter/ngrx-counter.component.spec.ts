@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 
 import { Decrement, Increment, Reset } from '../actions/counter.actions';
 import { AppState } from '../shared/app-state';
-import { findEl } from '../shared/helpers.spec';
+import { findEl, getText } from '../shared/helpers.spec';
 import { makeMockStore } from '../spec-helpers/make-mock-store.spec-helper';
 import { NgRxCounterComponent } from './ngrx-counter.component';
 
@@ -17,42 +17,40 @@ describe('NgRxCounterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      declarations: [ NgRxCounterComponent ],
       providers: [
         { provide: Store, useValue: makeMockStore(mockState) }
-      ],
-      declarations: [ NgRxCounterComponent ]
+      ]
     }).compileComponents();
 
     store = TestBed.get(Store);
 
     fixture = TestBed.createComponent(NgRxCounterComponent);
     fixture.detectChanges();
-  }));
-
-  it('shows the count', () => {
-    expect(findEl(fixture, 'count').nativeElement.textContent).toBe(
-      String(mockState.counter)
-    );
   });
 
-  it('dispatches an Increment action', () => {
+  it('shows the count', () => {
+    expect(getText(fixture, 'count')).toBe(String(mockState.counter));
+  });
+
+  it('increments the count', () => {
     findEl(fixture, 'increment-button').triggerEventHandler('click', null);
     expect(store.dispatch).toHaveBeenCalledWith(new Increment());
   });
 
-  it('dispatches a Decrement action', () => {
+  it('decrements the count', () => {
     findEl(fixture, 'decrement-button').triggerEventHandler('click', null);
     expect(store.dispatch).toHaveBeenCalledWith(new Decrement());
   });
 
-  it('dispatches a Reset action', () => {
+  it('resets the count', () => {
     const value = 15;
     findEl(fixture, 'reset-input').nativeElement.value = value;
     findEl(fixture, 'reset-button').triggerEventHandler('click', null);
     expect(store.dispatch).toHaveBeenCalledWith(new Reset(value));
   });
 
-  it('does not dispatch a Reset action if the value is not a number', () => {
+  it('does not reset if the value is not a number', () => {
     const value = 'lol';
     findEl(fixture, 'reset-input').nativeElement.value = value;
     findEl(fixture, 'reset-button').triggerEventHandler('click', null);

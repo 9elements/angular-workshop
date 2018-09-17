@@ -2,8 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 
 import { CounterService } from '../services/counter.service';
+import { findEl, getText } from '../shared/helpers.spec';
 import { ServiceCounterComponent } from './service-counter.component';
-import { findEl } from '../shared/helpers.spec';
 
 const count = 123;
 const newCount = 456;
@@ -18,10 +18,10 @@ const mockCounterService: Partial<CounterService> = {
 };
 
 describe('ServiceCounterComponent', () => {
-  let component: ServiceCounterComponent;
   let fixture: ComponentFixture<ServiceCounterComponent>;
 
   beforeEach(async(() => {
+    spyOn(mockCounterService, 'getCount').and.callThrough();
     spyOn(mockCounterService, 'increment');
     spyOn(mockCounterService, 'decrement');
     spyOn(mockCounterService, 'reset');
@@ -37,12 +37,12 @@ describe('ServiceCounterComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ServiceCounterComponent);
-    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('shows the count', () => {
-    expect(findEl(fixture, 'count').nativeElement.textContent).toBe(String(count));
+    expect(getText(fixture, 'count')).toBe(String(count));
+    expect(mockCounterService.getCount).toHaveBeenCalled();
   });
 
   it('increments the count', () => {
