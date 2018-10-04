@@ -21,7 +21,7 @@ describe('CounterService', () => {
 
   it('returns the count', (done: DoneFn) => {
     getCount().subscribe((count) => {
-      expect(count).toEqual(0);
+      expect(count).toBe(0);
       done();
     });
   });
@@ -29,7 +29,7 @@ describe('CounterService', () => {
   it('increments the count', (done: DoneFn) => {
     counterService.increment();
     getCount().subscribe((count) => {
-      expect(count).toEqual(1);
+      expect(count).toBe(1);
       done();
     });
   });
@@ -37,7 +37,7 @@ describe('CounterService', () => {
   it('decrements the count', (done: DoneFn) => {
     counterService.decrement();
     getCount().subscribe((count) => {
-      expect(count).toEqual(-1);
+      expect(count).toBe(-1);
       done();
     });
   });
