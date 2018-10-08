@@ -27,6 +27,7 @@ describe('IndependentCounterComponent', () => {
     fixture = TestBed.createComponent(IndependentCounterComponent);
     component = fixture.componentInstance;
     component.startCount = startCount;
+    component.ngOnChanges();
     fixture.detectChanges();
   });
 
