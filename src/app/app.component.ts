@@ -5,4 +5,10 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {}
+export class AppComponent {
+
+  handleChange(count: number) {
+    console.log('change event from IndependentCounter', count);
+  }
+
+}
