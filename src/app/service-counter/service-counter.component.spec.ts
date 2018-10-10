@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 
 import { CounterService } from '../services/counter.service';
-import { findEl, getText } from '../shared/helpers.spec';
+import { findEl, getText } from '../spec-helpers/element.spec-helper';
 import { ServiceCounterComponent } from './service-counter.component';
 
 const count = 123;

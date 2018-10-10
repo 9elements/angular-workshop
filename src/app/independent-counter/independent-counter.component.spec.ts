@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { findEl, getText } from '../shared/helpers.spec';
+import { findEl, getText } from '../spec-helpers/element.spec-helper';
 import { IndependentCounterComponent } from './independent-counter.component';
 
 const startCount = 123;
