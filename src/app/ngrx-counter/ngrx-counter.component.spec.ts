@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 
 import { Decrement, Increment, Reset } from '../actions/counter.actions';
 import { AppState } from '../shared/app-state';
-import { findEl, getText } from '../spec-helpers/element.spec-helper';
+import { expectText, findEl } from '../spec-helpers/element.spec-helper';
 import { makeMockStore } from '../spec-helpers/make-mock-store.spec-helper';
 import { NgRxCounterComponent } from './ngrx-counter.component';
 
@@ -30,7 +30,7 @@ describe('NgRxCounterComponent', () => {
   }));
 
   it('shows the count', () => {
-    expect(getText(fixture, 'count')).toBe(String(mockState.counter));
+    expectText(fixture, 'count', String(mockState.counter));
   });
 
   it('increments the count', () => {

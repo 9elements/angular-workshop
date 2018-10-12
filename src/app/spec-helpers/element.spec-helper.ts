@@ -19,7 +19,8 @@ function queryByCss<T>(
   return debugElement;
 }
 
-// Finds an element with the given 'data-qa' attribute
+// Finds an element with the given 'data-qa' attribute.
+// Throws an error if no element was found.
 export function findEl<T>(
   fixture: ComponentFixture<T>,
   qaAttribute: string
@@ -27,7 +28,7 @@ export function findEl<T>(
   return queryByCss<T>(fixture, `[data-qa="${qaAttribute}"]`);
 }
 
-// Finds all elements with the given 'data-qa' attribute
+// Finds all elements with the given 'data-qa' attribute.
 export function findEls<T>(
   fixture: ComponentFixture<T>,
   qaAttribute: string
@@ -35,9 +36,70 @@ export function findEls<T>(
   return fixture.debugElement.queryAll(By.css(`[data-qa="${qaAttribute}"]`));
 }
 
+// Gets the text content of an element with the given 'data-qa' attribute.
 export function getText<T>(
   fixture: ComponentFixture<T>,
   qaAttribute: string
 ): string {
   return findEl(fixture, qaAttribute).nativeElement.textContent;
+}
+
+// Expects that the element with the given 'data-qa' attribute has the given text content.
+export function expectText<T>(
+  fixture: ComponentFixture<T>,
+  qaAttribute: string,
+  text: string
+) {
+  expect(getText(fixture, qaAttribute).trim()).toBe(text);
+}
+
+// Expects that the element of a component has the given text content.
+export function expectContent<T>(
+  fixture: ComponentFixture<T>,
+  text: string
+) {
+  expect(fixture.nativeElement.textContent.trim()).toBe(text);
+}
+
+// Makes a fake click event that provides the most important properties.
+export function makeClickEvent(target: EventTarget): Partial<MouseEvent> {
+  return {
+    preventDefault() {},
+    stopPropagation() {},
+    stopImmediatePropagation() {},
+    type: 'click',
+    target: target,
+    currentTarget: target,
+    bubbles: true,
+    cancelable: true
+  };
+}
+
+// Emulates a left click on the element with the given 'data-qa' attribute.
+export function click<T>(
+  fixture: ComponentFixture<T>,
+  qaAttribute: string
+) {
+  const el = findEl(fixture, qaAttribute);
+  const event = makeClickEvent(el.nativeElement);
+  el.triggerEventHandler('click', event);
+}
+
+// Finds a nested component by its selector, e.g. 'app-example'.
+// Throws an error if no element was found.
+// Use this only for shallow component testing.
+// When finding other elements, use findEl(s) and data-qa attributes.
+export function findComponent<T>(
+  fixture: ComponentFixture<T>,
+  selector: string
+): DebugElement {
+  return queryByCss(fixture, selector);
+}
+
+// Finds all nested components by its selector, e.g. 'app-example'.
+export function findComponents<T>(
+  fixture: ComponentFixture<T>,
+  selector: string
+): DebugElement[] {
+  return fixture.debugElement.queryAll(By.css(selector));
 }

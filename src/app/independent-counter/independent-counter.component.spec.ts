@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { findEl, getText } from '../spec-helpers/element.spec-helper';
+import { expectText, findEl } from '../spec-helpers/element.spec-helper';
 import { IndependentCounterComponent } from './independent-counter.component';
 
 const startCount = 123;
@@ -11,9 +11,7 @@ describe('IndependentCounterComponent', () => {
   let fixture: ComponentFixture<IndependentCounterComponent>;
 
   function expectCount(count: number) {
-    expect(
-      getText(fixture, 'count')
-    ).toBe(String(count));
+    expectText(fixture, 'count', String(count));
   }
 
   beforeEach(async(() => {

@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 
 import { CounterService } from '../services/counter.service';
-import { findEl, getText } from '../spec-helpers/element.spec-helper';
+import { expectText, findEl } from '../spec-helpers/element.spec-helper';
 import { ServiceCounterComponent } from './service-counter.component';
 
 const count = 123;
@@ -41,7 +41,7 @@ describe('ServiceCounterComponent', () => {
   });
 
   it('shows the count', () => {
-    expect(getText(fixture, 'count')).toBe(String(count));
+    expectText(fixture, 'count', String(count));
     expect(mockCounterService.getCount).toHaveBeenCalled();
   });
 
