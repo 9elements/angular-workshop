@@ -7,8 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  handleChange(count: number) {
-    console.log('change event from IndependentCounter', count);
+  handleCountChange(count: number) {
+    console.log('countChange event from IndependentCounter', count);
   }
 
 }

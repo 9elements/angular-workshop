@@ -11,7 +11,7 @@ export class IndependentCounterComponent implements OnChanges {
   startCount = 0;
 
   @Output()
-  change = new EventEmitter<number>();
+  countChange = new EventEmitter<number>();
 
   count = 0;
 
@@ -35,7 +35,7 @@ export class IndependentCounterComponent implements OnChanges {
   }
 
   private notify() {
-    this.change.emit(this.count);
+    this.countChange.emit(this.count);
   }
 
 }
