@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Decrement, Increment, Reset } from '../actions/counter.actions';
 import { AppState } from '../shared/app-state';
 import { expectText, findEl } from '../spec-helpers/element.spec-helper';
-import { makeMockStore } from '../spec-helpers/make-mock-store.spec-helper';
+import { provideMockStore } from '../spec-helpers/mock-store.spec-helper';
 import { NgRxCounterComponent } from './ngrx-counter.component';
 
 const mockState: AppState = {
@@ -19,7 +19,7 @@ describe('NgRxCounterComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ NgRxCounterComponent ],
       providers: [
-        { provide: Store, useValue: makeMockStore(mockState) }
+        provideMockStore(mockState)
       ]
     }).compileComponents();
 

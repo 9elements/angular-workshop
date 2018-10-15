@@ -1,3 +1,5 @@
+import { Provider } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
 
 /* istanbul ignore next */
@@ -10,8 +12,8 @@ export class MockStore<T> extends BehaviorSubject<T> {
 }
 
 /*
-Returns a mock ngrx Store with the given state.
-For testing components and directives that require the ngrx Store.
+Returns a mock NgRx Store with the given state.
+For testing components and directives that require the NgRx Store.
 
 How to use this:
 
@@ -43,14 +45,24 @@ expect(store.dispatch).toHaveBeenCalledWith(
   new SomeAction(somePayload)
 );
 
-This mock store only implements the simplest API of an ngrx Store:
+This mock store only implements the simplest API of an NgRx Store:
 The `dispatch` method.
-If the component needs a full ngrx store, please use the normal way
-to create a fully-featured ngrx store:
+If the component needs a full NgRx store, please use the normal way
+to create a fully-featured NgRx store:
 https://github.com/ngrx/platform/blob/master/docs/store/testing.md
 */
 export function makeMockStore<T>(state: T): MockStore<T> {
   const store = new MockStore<T>(state);
   spyOn(store, 'dispatch');
   return store;
+}
+
+/*
+Returns a provider for the NgRx Store with a mock with the given state.
+*/
+export function provideMockStore<T>(state: T): Provider {
+  return {
+    provide: Store,
+    useValue: makeMockStore(state)
+  };
 }
