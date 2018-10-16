@@ -85,11 +85,11 @@ describe('CounterEffects', () => {
     expectSaveOnChange(incAction, mockCounterApi);
   });
 
-  it('saves the counter on increment', () => {
+  it('saves the counter on decrement', () => {
     expectSaveOnChange(decAction, mockCounterApi);
   });
 
-  it('saves the counter on Reset', () => {
+  it('saves the counter on reset', () => {
     expectSaveOnChange(resetAction, mockCounterApi);
   });
 
