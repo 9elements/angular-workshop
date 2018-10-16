@@ -7,7 +7,7 @@ export type CounterState = number;
 export const initialState: CounterState = 0;
 
 export function counterReducer(
-  state: CounterState = initialState,
+  state: CounterState | undefined = initialState,
   action: Action
 ): CounterState {
   switch (action.type) {
