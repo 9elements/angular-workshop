@@ -3,11 +3,13 @@
 <p>
   <strong data-qa="count">{{ count$ | async }}</strong>
 </p>
+
 <p>
   <button (click)="increment()" data-qa="increment-button">+</button>
   <button (click)="decrement()" data-qa="decrement-button">-</button>
 </p>
+
 <p>
-  <input #resetNumber type="number" value="0" data-qa="reset-input">
-  <button (click)="reset(resetNumber.value)" data-qa="reset-button">Reset</button>
+  <input type="number" #input data-qa="reset-input">
+  <button (click)="reset(input.value)" data-qa="reset-button">Reset</button>
 </p>
