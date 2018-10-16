@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { take, toArray } from 'rxjs/operators';
 
-import { expectText, findEl } from '../spec-helpers/element.spec-helper';
+import { click, expectText, findEl } from '../spec-helpers/element.spec-helper';
 import { IndependentCounterComponent } from './independent-counter.component';
 
 const startCount = 123;
@@ -34,22 +35,32 @@ describe('IndependentCounterComponent', () => {
   });
 
   it('increments the count', () => {
-    findEl(fixture, 'increment-button').triggerEventHandler('click', null);
+    click(fixture, 'increment-button');
     fixture.detectChanges();
     expectCount(startCount + 1);
   });
 
   it('decrements the count', () => {
-    findEl(fixture, 'decrement-button').triggerEventHandler('click', null);
+    click(fixture, 'decrement-button');
     fixture.detectChanges();
     expectCount(startCount - 1);
   });
 
   it('resets the count', () => {
-    const input = findEl(fixture, 'reset-input');
-    input.nativeElement.value = String(newCount);
-    findEl(fixture, 'reset-button').triggerEventHandler('click', null);
+    findEl(fixture, 'reset-input').nativeElement.value = String(newCount);
+    click(fixture, 'reset-button');
     fixture.detectChanges();
     expectCount(newCount);
   });
+
+  it('emits countChange events', async(() => {
+    component.countChange.pipe(take(3), toArray()).subscribe((events) => {
+      expect(events).toEqual([ startCount + 1, startCount, newCount ]);
+    });
+    click(fixture, 'increment-button');
+    click(fixture, 'decrement-button');
+    findEl(fixture, 'reset-input').nativeElement.value  = String(newCount);
+    click(fixture, 'reset-button');
+  }));
+
 });
