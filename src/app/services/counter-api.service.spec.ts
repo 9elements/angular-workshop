@@ -31,10 +31,7 @@ describe('CounterApiService', () => {
       }
     );
 
-    const request = httpMock.expectOne((candidateRequest) =>
-      candidateRequest.method === 'GET' &&
-      candidateRequest.url === expectedURL
-    );
+    const request = httpMock.expectOne({ method: 'GET', url: expectedURL });
     request.flush(serverResponse);
     httpMock.verify();
   });
@@ -53,10 +50,7 @@ describe('CounterApiService', () => {
         );
     });
 
-    const request = httpMock.expectOne((candidateRequest) =>
-      candidateRequest.method === 'GET' &&
-      candidateRequest.url === expectedURL
-    );
+    const request = httpMock.expectOne({ method: 'GET', url: expectedURL });
     request.error(errorEvent);
     httpMock.verify();
   });
