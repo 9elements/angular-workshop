@@ -21,10 +21,6 @@ describe('CounterService', () => {
     expectCount(0);
   }));
 
-  it('spec with no expectations', () => {
-    console.log('spec with no expectations');
-  });
-
   it('increments the count', async(() => {
     counterService.increment();
     expectCount(1);
