@@ -1,8 +1,9 @@
+/* istanbul ignore file */
+
 import { Provider } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-/* istanbul ignore next */
 export class MockStore<T> extends BehaviorSubject<T> {
   // Original signature:
   // dispatch<V extends Action = Action>(action: V): void {
