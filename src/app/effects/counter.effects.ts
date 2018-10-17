@@ -9,7 +9,6 @@ import {
   CounterAction,
   CounterSaveAction,
   SaveError,
-  SavePending,
   SaveSuccess,
 } from '../actions/counter.actions';
 import { CounterApiService } from '../services/counter-api.service';
@@ -19,26 +18,23 @@ import { AppState } from '../shared/app-state';
 export class CounterEffects {
 
   constructor(
-    private counterApiService: CounterApiService,
     private actions$: Actions,
-    private store$: Store<AppState>
+    private store$: Store<AppState>,
+    private counterApiService: CounterApiService,
   ) {}
 
   /*
    * Listens for counter changes and sends the state to the server.
-   * Dispatches SAVE_PENDING, and SAVE_SUCCESS or SAVE_ERROR.
+   * Dispatches SAVE_SUCCESS or SAVE_ERROR.
    */
   @Effect()
   saveOnChange$: Observable<CounterSaveAction> = this.actions$.pipe(
     ofType<CounterAction>(...CHANGED_TYPES),
     withLatestFrom(this.store$),
     mergeMap(([ _, state ]) =>
-      merge(
-        of(new SavePending()),
-        this.counterApiService.saveCounter(state.counter).pipe(
-          map(() => new SaveSuccess()),
-          catchError((error) => of(new SaveError(error)))
-        )
+      this.counterApiService.saveCounter(state.counter).pipe(
+        map(() => new SaveSuccess()),
+        catchError((error) => of(new SaveError(error)))
       )
     )
   );

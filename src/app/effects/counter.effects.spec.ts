@@ -4,7 +4,7 @@ import { Action, Store } from '@ngrx/store';
 import { from, Observable, of, throwError } from 'rxjs';
 import { toArray } from 'rxjs/operators';
 
-import { Decrement, Increment, Reset, SaveError, SavePending, SaveSuccess } from '../actions/counter.actions';
+import { Decrement, Increment, Reset, SaveError, SaveSuccess } from '../actions/counter.actions';
 import { CounterApiService } from '../services/counter-api.service';
 import { AppState } from '../shared/app-state';
 import { CounterEffects } from './counter.effects';
@@ -18,7 +18,6 @@ const apiError = new Error('API Error');
 const incAction = new Increment();
 const decAction = new Decrement();
 const resetAction = new Reset(5);
-const pendingAction = new SavePending();
 const successAction = new SaveSuccess();
 const errorAction = new SaveError(apiError);
 
@@ -53,11 +52,11 @@ function setup(
 
   TestBed.configureTestingModule({
     providers: [
-      { provide: CounterApiService, useValue: counterApi },
       provideMockActions(
         from(Array.isArray(actions) ? actions : [ actions ])
       ),
       { provide: Store, useValue: of(mockState) },
+      { provide: CounterApiService, useValue: counterApi },
       CounterEffects
     ]
   });
@@ -71,10 +70,7 @@ function expectSaveOnChange(
 ) {
   const counterEffects = setup(action, counterApi);
 
-  expectActions(counterEffects.saveOnChange$, [
-    pendingAction,
-    successAction
-  ]);
+  expectActions(counterEffects.saveOnChange$, [ successAction ]);
 
   expect(counterApi.saveCounter).toHaveBeenCalledWith(mockState.counter);
 }
@@ -98,9 +94,9 @@ describe('CounterEffects', () => {
     const counterEffects = setup(actions, mockCounterApiError);
 
     expectActions(counterEffects.saveOnChange$, [
-      pendingAction, errorAction,
-      pendingAction, errorAction,
-      pendingAction, errorAction
+      errorAction,
+      errorAction,
+      errorAction
     ]);
 
     expect(mockCounterApiError.saveCounter).toHaveBeenCalledWith(mockState.counter);
