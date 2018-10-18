@@ -103,6 +103,11 @@
           "options": {
             "protractorConfig": "./protractor.conf.js",
             "devServerTarget": "angular-workshop:serve"
+          },
+          "configurations": {
+            "noserve": {
+              "devServerTarget": ""
+            }
           }
         },
         "lint": {
