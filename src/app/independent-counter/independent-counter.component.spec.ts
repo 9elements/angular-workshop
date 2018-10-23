@@ -53,14 +53,20 @@ describe('IndependentCounterComponent', () => {
     expectCount(newCount);
   });
 
-  it('emits countChange events', async(() => {
-    component.countChange.pipe(take(3), toArray()).subscribe((events) => {
-      expect(events).toEqual([ startCount + 1, startCount, newCount ]);
-    });
+  it('emits countChange events', () => {
+    let events: number[] | undefined;
+    component.countChange
+      .pipe(take(3), toArray())
+      .subscribe((_events) => {
+        events = _events;
+      });
+
     click(fixture, 'increment-button');
     click(fixture, 'decrement-button');
-    findEl(fixture, 'reset-input').nativeElement.value  = String(newCount);
+    setFieldValue(fixture, 'reset-input', String(newCount));
     click(fixture, 'reset-button');
-  }));
+
+    expect(events).toEqual([ startCount + 1, startCount, newCount ]);
+  });
 
 });
