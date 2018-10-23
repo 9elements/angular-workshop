@@ -55,12 +55,21 @@ export function expectText<T>(
   expect(getText(fixture, qaAttribute).trim()).toBe(text);
 }
 
-// Expects that the element of a component has the given text content.
+// Expects that the component has the given text content.
 export function expectContent<T>(
   fixture: ComponentFixture<T>,
   text: string
 ) {
   expect(fixture.nativeElement.textContent.trim()).toBe(text);
+}
+
+// Sets the value of a form field with the given 'data-qa' attribute.
+export function setFieldValue<T>(
+  fixture: ComponentFixture<T>,
+  qaAttribute: string,
+  value: string
+) {
+  findEl(fixture, qaAttribute).nativeElement.value = value;
 }
 
 // Makes a fake click event that provides the most important properties.

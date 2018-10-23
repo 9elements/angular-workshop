@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { take, toArray } from 'rxjs/operators';
 
-import { click, expectText, findEl } from '../spec-helpers/element.spec-helper';
+import { click, expectText, findEl, setFieldValue } from '../spec-helpers/element.spec-helper';
 import { IndependentCounterComponent } from './independent-counter.component';
 
 const startCount = 123;
@@ -47,7 +47,7 @@ describe('IndependentCounterComponent', () => {
   });
 
   it('resets the count', () => {
-    findEl(fixture, 'reset-input').nativeElement.value = String(newCount);
+    setFieldValue(fixture, 'reset-input', String(newCount));
     click(fixture, 'reset-button');
     fixture.detectChanges();
     expectCount(newCount);

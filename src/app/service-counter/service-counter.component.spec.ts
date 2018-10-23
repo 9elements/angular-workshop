@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 
 import { CounterService } from '../services/counter.service';
-import { click, expectText, findEl } from '../spec-helpers/element.spec-helper';
+import { click, expectText, setFieldValue } from '../spec-helpers/element.spec-helper';
 import { ServiceCounterComponent } from './service-counter.component';
 
 const count = 123;
@@ -56,8 +56,7 @@ describe('ServiceCounterComponent', () => {
   });
 
   it('resets the count', () => {
-    const input = findEl(fixture, 'reset-input');
-    input.nativeElement.value = String(newCount);
+    setFieldValue(fixture, 'reset-input', String(newCount));
     click(fixture, 'reset-button');
     expect(mockCounterService.reset).toHaveBeenCalledWith(newCount);
   });

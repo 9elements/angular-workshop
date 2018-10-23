@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 
 import { Decrement, Increment, Reset } from '../actions/counter.actions';
 import { AppState } from '../shared/app-state';
-import { click, expectText, findEl } from '../spec-helpers/element.spec-helper';
+import { click, expectText, findEl, setFieldValue } from '../spec-helpers/element.spec-helper';
 import { provideMockStore } from '../spec-helpers/mock-store.spec-helper';
 import { NgRxCounterComponent } from './ngrx-counter.component';
 
@@ -46,7 +46,7 @@ describe('NgRxCounterComponent', () => {
   });
 
   it('resets the count', () => {
-    findEl(fixture, 'reset-input').nativeElement.value = newCount;
+    setFieldValue(fixture, 'reset-input', String(newCount));
     click(fixture, 'reset-button');
 
     expect(store.dispatch).toHaveBeenCalledWith(new Reset(newCount));
@@ -54,7 +54,7 @@ describe('NgRxCounterComponent', () => {
 
   it('does not reset if the value is not a number', () => {
     const value = 'lol';
-    findEl(fixture, 'reset-input').nativeElement.value = value;
+    setFieldValue(fixture, 'reset-input', value);
     click(fixture, 'reset-button');
     expect(store.dispatch).not.toHaveBeenCalled();
   });
