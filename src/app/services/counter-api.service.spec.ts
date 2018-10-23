@@ -37,23 +37,21 @@ describe('CounterApiService', () => {
   });
 
   it('handles save counter errors', () => {
+    const status = 500;
+    const statusText = 'Server error';
+
     counterApiService.saveCounter(counter).subscribe(
       fail,
-      (error) => {
-        expect(error).toEqual(
-          new HttpErrorResponse({
-            error: errorEvent,
-            url: expectedURL,
-            status: 0,
-            statusText: ''
-          })
-        );
+      (error: HttpErrorResponse) => {
+        expect(error.error).toBe(errorEvent);
+        expect(error.status).toBe(status);
+        expect(error.statusText).toBe(statusText);
       },
       fail
     );
 
     const request = httpMock.expectOne({ method: 'GET', url: expectedURL });
-    request.error(errorEvent);
+    request.error(errorEvent, { status: 500, statusText: 'Server error' });
     httpMock.verify();
   });
 
