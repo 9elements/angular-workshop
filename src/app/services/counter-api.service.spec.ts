@@ -48,7 +48,9 @@ describe('CounterApiService', () => {
             statusText: ''
           })
         );
-    });
+      },
+      fail
+    );
 
     const request = httpMock.expectOne({ method: 'GET', url: expectedURL });
     request.error(errorEvent);
