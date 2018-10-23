@@ -7,9 +7,11 @@ import { click, expectText, findEl } from '../spec-helpers/element.spec-helper';
 import { provideMockStore } from '../spec-helpers/mock-store.spec-helper';
 import { NgRxCounterComponent } from './ngrx-counter.component';
 
-const mockState: AppState = {
+const mockState: Partial<AppState> = {
   counter: 5
 };
+
+const newCount = 15;
 
 describe('NgRxCounterComponent', () => {
   let fixture: ComponentFixture<NgRxCounterComponent>;
@@ -44,10 +46,10 @@ describe('NgRxCounterComponent', () => {
   });
 
   it('resets the count', () => {
-    const value = 15;
-    findEl(fixture, 'reset-input').nativeElement.value = value;
+    findEl(fixture, 'reset-input').nativeElement.value = newCount;
     click(fixture, 'reset-button');
-    expect(store.dispatch).toHaveBeenCalledWith(new Reset(value));
+
+    expect(store.dispatch).toHaveBeenCalledWith(new Reset(newCount));
   });
 
   it('does not reset if the value is not a number', () => {
