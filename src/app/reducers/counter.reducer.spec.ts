@@ -1,4 +1,4 @@
-import { Decrement, Increment, Reset } from '../actions/counter.actions';
+import { decrement, increment, reset } from '../actions/counter.actions';
 import { counterReducer, CounterState } from './counter.reducer';
 
 describe('counterReducer', () => {
@@ -16,20 +16,20 @@ describe('counterReducer', () => {
 
   it('increments', () => {
     const state: CounterState = 0;
-    const newState = counterReducer(state, new Increment());
+    const newState = counterReducer(state, increment());
     expect(newState).toBe(1);
   });
 
   it('decrements', () => {
     const state: CounterState = 1;
-    const newState = counterReducer(state, new Decrement());
+    const newState = counterReducer(state, decrement());
     expect(newState).toBe(0);
   });
 
   it('resets', () => {
     const newCount: CounterState = 5;
     const state: CounterState = 0;
-    const newState = counterReducer(state, new Reset(newCount));
+    const newState = counterReducer(state, reset({ count: newCount }));
     expect(newState).toBe(newCount);
   });
 

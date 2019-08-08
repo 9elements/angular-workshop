@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { Decrement, Increment, Reset } from '../actions/counter.actions';
 import { CounterState } from '../reducers/counter.reducer';
 import { AppState } from '../shared/app-state';
+import { increment, decrement, reset } from '../actions/counter.actions';
 
 @Component({
   selector: 'app-ngrx-counter',
@@ -21,17 +21,17 @@ export class NgRxCounterComponent {
   }
 
   increment() {
-    this.store.dispatch(new Increment());
+    this.store.dispatch(increment());
   }
 
   decrement() {
-    this.store.dispatch(new Decrement());
+    this.store.dispatch(decrement());
   }
 
-  reset(resetNumber: string) {
-    const number = parseInt(resetNumber, 10);
-    if (!isNaN(number)) {
-      this.store.dispatch(new Reset(number));
+  reset(countString: string) {
+    const count = parseInt(countString, 10);
+    if (!Number.isNaN(count)) {
+      this.store.dispatch(reset({ count }));
     }
   }
 

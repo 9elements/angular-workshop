@@ -1,44 +1,10 @@
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
+
 import { CounterState } from '../reducers/counter.reducer';
 
-export const INCREMENT = '[counter] Increment';
-export const DECREMENT = '[counter] Decrement';
-export const RESET = '[counter] Reset';
+export const increment = createAction('[counter] Increment');
+export const decrement = createAction('[counter] Decrement');
+export const reset = createAction('[counter] Reset', props<{ count: CounterState }>());
 
-export const SAVE_SUCCESS = '[counter] Save success';
-export const SAVE_ERROR = '[counter] Save error';
-
-// Actions without SAVING / SAVED
-export const CHANGED_TYPES = [
-  INCREMENT, DECREMENT, RESET
-];
-
-export class Increment implements Action {
-  readonly type = INCREMENT;
-}
-
-export class Decrement implements Action {
-  readonly type = DECREMENT;
-}
-
-export class Reset implements Action {
-  readonly type = RESET;
-
-  constructor(public payload: CounterState) {}
-}
-
-export class SaveSuccess implements Action {
-  readonly type = SAVE_SUCCESS;
-}
-
-export class SaveError implements Action {
-  readonly type = SAVE_ERROR;
-
-  constructor(public payload: Error) {}
-}
-
-export type CounterAction =
-  Increment | Decrement | Reset;
-
-export type CounterSaveAction =
-  SaveSuccess | SaveError;
+export const saveSuccess = createAction('[counter] Save success');
+export const saveError = createAction('[counter] Save success', props<{ error: Error }>());

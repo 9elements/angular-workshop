@@ -2,13 +2,22 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 
 import { CounterService } from '../services/counter.service';
-import { click, expectText, setFieldValue } from '../spec-helpers/element.spec-helper';
+import {
+  click,
+  expectText,
+  setFieldValue
+} from '../spec-helpers/element.spec-helper';
 import { ServiceCounterComponent } from './service-counter.component';
 
 const count = 123;
 const newCount = 456;
 
-const mockCounterService: Partial<CounterService> = {
+type PartialCounterService = Pick<
+  CounterService,
+  'getCount' | 'increment' | 'decrement' | 'reset'
+>;
+
+const mockCounterService: PartialCounterService = {
   getCount() {
     return of(count);
   },
@@ -27,12 +36,9 @@ describe('ServiceCounterComponent', () => {
     spyOn(mockCounterService, 'reset');
 
     TestBed.configureTestingModule({
-      declarations: [ ServiceCounterComponent ],
-      providers: [
-        { provide: CounterService, useValue: mockCounterService }
-      ]
-    })
-    .compileComponents();
+      declarations: [ServiceCounterComponent],
+      providers: [{ provide: CounterService, useValue: mockCounterService }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,11 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 
-import { Decrement, Increment, Reset } from '../actions/counter.actions';
 import { AppState } from '../shared/app-state';
 import { click, expectText, findEl, setFieldValue } from '../spec-helpers/element.spec-helper';
 import { provideMockStore } from '../spec-helpers/mock-store.spec-helper';
 import { NgRxCounterComponent } from './ngrx-counter.component';
+import { increment, decrement, reset } from '../actions/counter.actions';
 
 const mockState: Partial<AppState> = {
   counter: 5
@@ -37,19 +37,19 @@ describe('NgRxCounterComponent', () => {
 
   it('increments the count', () => {
     click(fixture, 'increment-button');
-    expect(store.dispatch).toHaveBeenCalledWith(new Increment());
+    expect(store.dispatch).toHaveBeenCalledWith(increment());
   });
 
   it('decrements the count', () => {
     click(fixture, 'decrement-button');
-    expect(store.dispatch).toHaveBeenCalledWith(new Decrement());
+    expect(store.dispatch).toHaveBeenCalledWith(decrement());
   });
 
   it('resets the count', () => {
     setFieldValue(fixture, 'reset-input', String(newCount));
     click(fixture, 'reset-button');
 
-    expect(store.dispatch).toHaveBeenCalledWith(new Reset(newCount));
+    expect(store.dispatch).toHaveBeenCalledWith(reset({ count: newCount }));
   });
 
   it('does not reset if the value is not a number', () => {
