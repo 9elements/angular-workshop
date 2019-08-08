@@ -1,11 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
 
+import { decrement, increment, reset } from '../actions/counter.actions';
 import { AppState } from '../shared/app-state';
-import { click, expectText, findEl, setFieldValue } from '../spec-helpers/element.spec-helper';
-import { provideMockStore } from '../spec-helpers/mock-store.spec-helper';
+import { click, expectText, setFieldValue } from '../spec-helpers/element.spec-helper';
 import { NgRxCounterComponent } from './ngrx-counter.component';
-import { increment, decrement, reset } from '../actions/counter.actions';
 
 const mockState: Partial<AppState> = {
   counter: 5
@@ -21,11 +21,12 @@ describe('NgRxCounterComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ NgRxCounterComponent ],
       providers: [
-        provideMockStore(mockState)
+        provideMockStore({ initialState: mockState })
       ]
     }).compileComponents();
 
     store = TestBed.get(Store);
+    spyOn(store , 'dispatch');
 
     fixture = TestBed.createComponent(NgRxCounterComponent);
     fixture.detectChanges();
