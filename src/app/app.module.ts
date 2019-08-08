@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from 'src/environments/environment';
 
 import { AppComponent } from './app.component';
 import { CounterEffects } from './effects/counter.effects';
@@ -26,22 +27,23 @@ import { CounterService } from './services/counter.service';
     HttpClientModule,
 
     // NgRx Store
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot(reducers, {
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true
+      }
+    }),
 
     // NgRx Effects
-    EffectsModule.forRoot([
-      CounterEffects
-    ]),
+    EffectsModule.forRoot([CounterEffects]),
 
     // NgRx Store Dev Tools
     StoreDevtoolsModule.instrument({
-      maxAge: 25 // Retains last n states
+      maxAge: 25, // Retains last n states
+      logOnly: environment.production
     })
   ],
-  providers: [
-    CounterService,
-    CounterApiService
-  ],
+  providers: [CounterService, CounterApiService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
