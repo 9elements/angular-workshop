@@ -1,5 +1,4 @@
-import { async, TestBed } from '@angular/core/testing';
-import { first } from 'rxjs/operators';
+import { TestBed } from '@angular/core/testing';
 
 import { CounterService } from './counter.service';
 
@@ -8,8 +7,8 @@ describe('CounterService', () => {
 
   function expectCount(count: number) {
     let actualCount: number | undefined;
-    counterService.getCount().subscribe((_actualCount) => {
-      actualCount = _actualCount;
+    counterService.getCount().subscribe((actualCount2) => {
+      actualCount = actualCount2;
     });
     expect(actualCount).toBe(count);
   }
