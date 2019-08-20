@@ -1,13 +1,13 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Store } from '@ngrx/store';
-import { provideMockStore } from '@ngrx/store/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { Store } from "@ngrx/store";
+import { provideMockStore } from "@ngrx/store/testing";
 
-import { decrement, increment, reset } from '../actions/counter.actions';
-import { AppState } from '../shared/app-state';
-import { click, expectText, setFieldValue } from '../spec-helpers/element.spec-helper';
-import { NgRxCounterComponent } from './ngrx-counter.component';
+import { decrement, increment, reset } from "../actions/counter.actions";
+import { AppState } from "../shared/app-state";
+import { click, expectText, setFieldValue } from "../spec-helpers/element.spec-helper";
+import { NgRxCounterComponent } from "./ngrx-counter.component";
 
-const mockState: Partial<AppState> = {
+const mockState: AppState = {
   counter: 5
 };
 
