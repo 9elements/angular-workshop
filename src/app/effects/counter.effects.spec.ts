@@ -1,16 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { Action, Store } from '@ngrx/store';
+import { Action } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
 import { from, Observable, of, throwError } from 'rxjs';
 import { toArray } from 'rxjs/operators';
 
-import {
-  decrement,
-  increment,
-  reset,
-  saveError,
-  saveSuccess
-} from '../actions/counter.actions';
+import { decrement, increment, reset, saveError, saveSuccess } from '../actions/counter.actions';
 import { CounterApiService } from '../services/counter-api.service';
 import { AppState } from '../shared/app-state';
 import { CounterEffects } from './counter.effects';
@@ -28,9 +23,14 @@ const successAction = saveSuccess();
 const errorAction = saveError({ error: apiError });
 
 function expectActions(effect: Observable<Action>, actions: Action[]) {
-  effect.pipe(toArray()).subscribe(actualActions => {
-    expect(actualActions).toEqual(actions);
-  }, fail);
+  effect
+    .pipe(toArray())
+    .subscribe(
+      (actualActions) => {
+        expect(actualActions).toEqual(actions);
+      },
+      fail
+    );
 }
 
 // Mocks for CounterApiService
@@ -50,15 +50,15 @@ const mockCounterApiError: PartialCounterApiService = {
 };
 
 function setup(
-  actions: Action | Action[],
+  actions: Action[],
   counterApi: PartialCounterApiService
 ): CounterEffects {
   spyOn(counterApi, 'saveCounter').and.callThrough();
 
   TestBed.configureTestingModule({
     providers: [
-      provideMockActions(from(Array.isArray(actions) ? actions : [actions])),
-      { provide: Store, useValue: of(mockState) },
+      provideMockActions(from(actions)),
+      provideMockStore({ initialState: mockState }),
       { provide: CounterApiService, useValue: counterApi },
       CounterEffects
     ]
@@ -71,7 +71,7 @@ function expectSaveOnChange(
   action: Action,
   counterApi: PartialCounterApiService
 ) {
-  const counterEffects = setup(action, counterApi);
+  const counterEffects = setup([action], counterApi);
 
   expectActions(counterEffects.saveOnChange$, [successAction]);
 
