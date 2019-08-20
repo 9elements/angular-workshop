@@ -7,4 +7,4 @@ export const decrement = createAction('[counter] Decrement');
 export const reset = createAction('[counter] Reset', props<{ count: CounterState }>());
 
 export const saveSuccess = createAction('[counter] Save success');
-export const saveError = createAction('[counter] Save success', props<{ error: Error }>());
+export const saveError = createAction('[counter] Save error', props<{ error: Error }>());
