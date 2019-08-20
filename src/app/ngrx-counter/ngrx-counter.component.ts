@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
+import { decrement, increment, reset } from '../actions/counter.actions';
 import { CounterState } from '../reducers/counter.reducer';
 import { AppState } from '../shared/app-state';
-import { increment, decrement, reset } from '../actions/counter.actions';
+import { selectCounter } from '../shared/selectors';
 
 @Component({
   selector: 'app-ngrx-counter',
@@ -17,7 +18,7 @@ export class NgRxCounterComponent {
   count$: Observable<CounterState>;
 
   constructor(private store: Store<AppState>) {
-    this.count$ = store.pipe(select('counter'));
+    this.count$ = store.pipe(select(selectCounter));
   }
 
   increment() {
