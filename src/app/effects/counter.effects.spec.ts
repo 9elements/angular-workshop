@@ -16,9 +16,8 @@ import { CounterApiService } from '../services/counter-api.service';
 import { AppState } from '../shared/app-state';
 import { CounterEffects } from './counter.effects';
 
-const mockState: Partial<AppState> = {
-  counter: 1
-};
+const counter = 1;
+const mockState: Partial<AppState> = { counter };
 
 const apiError = new Error('API Error');
 
@@ -29,7 +28,7 @@ const successAction = saveSuccess();
 const errorAction = saveError({ error: apiError });
 
 function expectActions(effect: Observable<Action>, actions: Action[]): void {
-  effect.pipe(toArray()).subscribe(actualActions => {
+  effect.pipe(toArray()).subscribe((actualActions) => {
     expect(actualActions).toEqual(actions);
   }, fail);
 }
@@ -50,10 +49,7 @@ const mockCounterApiError: PartialCounterApiService = {
   }
 };
 
-function setup(
-  actions: Action[],
-  counterApi: PartialCounterApiService
-): CounterEffects {
+function setup(actions: Action[], counterApi: PartialCounterApiService): CounterEffects {
   spyOn(counterApi, 'saveCounter').and.callThrough();
 
   TestBed.configureTestingModule({
@@ -68,15 +64,12 @@ function setup(
   return TestBed.get(CounterEffects);
 }
 
-function expectSaveOnChange(
-  action: Action,
-  counterApi: PartialCounterApiService
-): void {
+function expectSaveOnChange(action: Action, counterApi: PartialCounterApiService): void {
   const counterEffects = setup([action], counterApi);
 
   expectActions(counterEffects.saveOnChange$, [successAction]);
 
-  expect(counterApi.saveCounter).toHaveBeenCalledWith(mockState.counter);
+  expect(counterApi.saveCounter).toHaveBeenCalledWith(counter);
 }
 
 describe('CounterEffects', () => {
@@ -96,14 +89,8 @@ describe('CounterEffects', () => {
     const actions = [incAction, incAction, incAction];
     const counterEffects = setup(actions, mockCounterApiError);
 
-    expectActions(counterEffects.saveOnChange$, [
-      errorAction,
-      errorAction,
-      errorAction
-    ]);
+    expectActions(counterEffects.saveOnChange$, [errorAction, errorAction, errorAction]);
 
-    expect(mockCounterApiError.saveCounter).toHaveBeenCalledWith(
-      mockState.counter
-    );
+    expect(mockCounterApiError.saveCounter).toHaveBeenCalledWith(counter);
   });
 });
