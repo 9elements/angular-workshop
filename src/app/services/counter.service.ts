@@ -17,26 +17,26 @@ export class CounterService {
   // Every BehaviorSubject is an Observable and Observer.
   // We do not want to expose the Observer trait to the outside,
   // so we downcast the BehaviorSubject to a simple Observable only.
-  getCount(): Observable<number> {
+  public getCount(): Observable<number> {
     return this.subject.asObservable();
   }
 
-  increment() {
+  public increment(): void {
     this.count++;
     this.notify();
   }
 
-  decrement() {
+  public decrement(): void {
     this.count--;
     this.notify();
   }
 
-  reset(newCount: number) {
+  public reset(newCount: number): void {
     this.count = newCount;
     this.notify();
   }
 
-  private notify() {
+  private notify(): void {
     this.subject.next(this.count);
   }
 

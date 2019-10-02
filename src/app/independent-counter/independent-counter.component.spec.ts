@@ -1,7 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { take, toArray } from 'rxjs/operators';
 
-import { click, expectText, findEl, setFieldValue } from '../spec-helpers/element.spec-helper';
+import {
+  click,
+  expectText,
+  setFieldValue
+} from '../spec-helpers/element.spec-helper';
 import { IndependentCounterComponent } from './independent-counter.component';
 
 const startCount = 123;
@@ -11,15 +15,14 @@ describe('IndependentCounterComponent', () => {
   let component: IndependentCounterComponent;
   let fixture: ComponentFixture<IndependentCounterComponent>;
 
-  function expectCount(count: number) {
+  function expectCount(count: number): void {
     expectText(fixture, 'count', String(count));
   }
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IndependentCounterComponent ]
-    })
-    .compileComponents();
+      declarations: [IndependentCounterComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -56,9 +59,12 @@ describe('IndependentCounterComponent', () => {
   it('emits countChange events', () => {
     let events: number[] | undefined;
     component.countChange
-      .pipe(take(3), toArray())
-      .subscribe((_events) => {
-        events = _events;
+      .pipe(
+        take(3),
+        toArray()
+      )
+      .subscribe(actualEvents => {
+        events = actualEvents;
       });
 
     click(fixture, 'increment-button');
@@ -66,7 +72,6 @@ describe('IndependentCounterComponent', () => {
     setFieldValue(fixture, 'reset-input', String(newCount));
     click(fixture, 'reset-button');
 
-    expect(events).toEqual([ startCount + 1, startCount, newCount ]);
+    expect(events).toEqual([startCount + 1, startCount, newCount]);
   });
-
 });

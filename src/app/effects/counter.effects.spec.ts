@@ -5,7 +5,13 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { from, Observable, of, throwError } from 'rxjs';
 import { toArray } from 'rxjs/operators';
 
-import { decrement, increment, reset, saveError, saveSuccess } from '../actions/counter.actions';
+import {
+  decrement,
+  increment,
+  reset,
+  saveError,
+  saveSuccess
+} from '../actions/counter.actions';
 import { CounterApiService } from '../services/counter-api.service';
 import { AppState } from '../shared/app-state';
 import { CounterEffects } from './counter.effects';
@@ -22,15 +28,10 @@ const resetAction = reset({ count: 5 });
 const successAction = saveSuccess();
 const errorAction = saveError({ error: apiError });
 
-function expectActions(effect: Observable<Action>, actions: Action[]) {
-  effect
-    .pipe(toArray())
-    .subscribe(
-      (actualActions) => {
-        expect(actualActions).toEqual(actions);
-      },
-      fail
-    );
+function expectActions(effect: Observable<Action>, actions: Action[]): void {
+  effect.pipe(toArray()).subscribe(actualActions => {
+    expect(actualActions).toEqual(actions);
+  }, fail);
 }
 
 // Mocks for CounterApiService
@@ -38,13 +39,13 @@ function expectActions(effect: Observable<Action>, actions: Action[]) {
 type PartialCounterApiService = Pick<CounterApiService, 'saveCounter'>;
 
 const mockCounterApi: PartialCounterApiService = {
-  saveCounter() {
+  saveCounter(): Observable<{}> {
     return of({});
   }
 };
 
 const mockCounterApiError: PartialCounterApiService = {
-  saveCounter() {
+  saveCounter(): Observable<never> {
     return throwError(apiError);
   }
 };
@@ -70,7 +71,7 @@ function setup(
 function expectSaveOnChange(
   action: Action,
   counterApi: PartialCounterApiService
-) {
+): void {
   const counterEffects = setup([action], counterApi);
 
   expectActions(counterEffects.saveOnChange$, [successAction]);

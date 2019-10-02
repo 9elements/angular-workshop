@@ -11,21 +11,21 @@ import { CounterService } from '../services/counter.service';
 })
 export class ServiceCounterComponent {
 
-  count$: Observable<CounterState>;
+  public count$: Observable<CounterState>;
 
   constructor(private counterService: CounterService) {
     this.count$ = this.counterService.getCount();
   }
 
-  increment() {
+  public increment(): void {
     this.counterService.increment();
   }
 
-  decrement() {
+  public decrement(): void {
     this.counterService.decrement();
   }
 
-  reset(newCount: string) {
+  public reset(newCount: string): void {
     this.counterService.reset(parseInt(newCount, 10));
   }
 

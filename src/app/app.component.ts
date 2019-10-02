@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  handleCountChange(count: number) {
+  public handleCountChange(count: number): void {
     console.log('countChange event from IndependentCounter', count);
   }
 

@@ -8,33 +8,33 @@ import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core
 export class IndependentCounterComponent implements OnChanges {
 
   @Input()
-  startCount = 0;
+  public startCount = 0;
 
   @Output()
-  countChange = new EventEmitter<number>();
+  public countChange = new EventEmitter<number>();
 
-  count = 0;
+  public count = 0;
 
-  ngOnChanges() {
+  public ngOnChanges(): void {
     this.count = this.startCount;
   }
 
-  increment() {
+  public increment(): void {
     this.count++;
     this.notify();
   }
 
-  decrement() {
+  public decrement(): void {
     this.count--;
     this.notify();
   }
 
-  reset(newCount: string) {
+  public reset(newCount: string): void {
     this.count = parseInt(newCount, 10);
     this.notify();
   }
 
-  private notify() {
+  private notify(): void {
     this.countChange.emit(this.count);
   }
 

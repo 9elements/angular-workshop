@@ -15,21 +15,21 @@ import { selectCounter } from '../shared/selectors';
 })
 export class NgRxCounterComponent {
 
-  count$: Observable<CounterState>;
+  public count$: Observable<CounterState>;
 
   constructor(private store: Store<AppState>) {
     this.count$ = store.pipe(select(selectCounter));
   }
 
-  increment() {
+  public increment(): void {
     this.store.dispatch(increment());
   }
 
-  decrement() {
+  public decrement(): void {
     this.store.dispatch(decrement());
   }
 
-  reset(countString: string) {
+  public reset(countString: string): void {
     const count = parseInt(countString, 10);
     if (!Number.isNaN(count)) {
       this.store.dispatch(reset({ count }));

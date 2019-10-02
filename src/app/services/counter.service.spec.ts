@@ -5,7 +5,7 @@ import { CounterService } from './counter.service';
 describe('CounterService', () => {
   let counterService: CounterService;
 
-  function expectCount(count: number) {
+  function expectCount(count: number): void {
     let actualCount: number | undefined;
     counterService.getCount().subscribe((actualCount2) => {
       actualCount = actualCount2;

@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { CounterService } from '../services/counter.service';
 import {
@@ -18,12 +18,12 @@ type PartialCounterService = Pick<
 >;
 
 const mockCounterService: PartialCounterService = {
-  getCount() {
+  getCount(): Observable<number> {
     return of(count);
   },
-  increment() {},
-  decrement() {},
-  reset() {}
+  increment(): void {},
+  decrement(): void {},
+  reset(): void {}
 };
 
 describe('ServiceCounterComponent', () => {

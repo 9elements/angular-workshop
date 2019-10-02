@@ -20,7 +20,7 @@ export class CounterEffects {
    * Listens for counter changes and sends the state to the server.
    * Dispatches SAVE_SUCCESS or SAVE_ERROR.
    */
-  saveOnChange$ = createEffect(() =>
+  public saveOnChange$ = createEffect(() =>
     this.actions$.pipe(
       ofType(increment, decrement, reset),
       withLatestFrom(this.store$),

@@ -51,7 +51,7 @@ export function expectText<T>(
   fixture: ComponentFixture<T>,
   qaAttribute: string,
   text: string
-) {
+): void {
   expect(getText(fixture, qaAttribute).trim()).toBe(text);
 }
 
@@ -59,7 +59,7 @@ export function expectText<T>(
 export function expectContent<T>(
   fixture: ComponentFixture<T>,
   text: string
-) {
+): void {
   expect(fixture.nativeElement.textContent.trim()).toBe(text);
 }
 
@@ -68,16 +68,16 @@ export function setFieldValue<T>(
   fixture: ComponentFixture<T>,
   qaAttribute: string,
   value: string
-) {
+): void {
   findEl(fixture, qaAttribute).nativeElement.value = value;
 }
 
 // Makes a fake click event that provides the most important properties.
 export function makeClickEvent(target: EventTarget): Partial<MouseEvent> {
   return {
-    preventDefault() {},
-    stopPropagation() {},
-    stopImmediatePropagation() {},
+    preventDefault(): void {},
+    stopPropagation(): void {},
+    stopImmediatePropagation(): void {},
     type: 'click',
     target,
     currentTarget: target,
@@ -90,7 +90,7 @@ export function makeClickEvent(target: EventTarget): Partial<MouseEvent> {
 export function click<T>(
   fixture: ComponentFixture<T>,
   qaAttribute: string
-) {
+): void {
   const el = findEl(fixture, qaAttribute);
   const event = makeClickEvent(el.nativeElement);
   el.triggerEventHandler('click', event);
