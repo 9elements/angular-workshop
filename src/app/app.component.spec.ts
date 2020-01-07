@@ -10,10 +10,8 @@ describe('AppComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
-      schemas: [ NO_ERRORS_SCHEMA ]
+      declarations: [AppComponent],
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   }));
 
@@ -29,7 +27,6 @@ describe('AppComponent', () => {
   });
 
   describe('independent counter', () => {
-
     it('renders an independent counter', () => {
       const el = findComponent(fixture, 'app-independent-counter');
       expect(el).toBeTruthy();
@@ -45,9 +42,11 @@ describe('AppComponent', () => {
       const el = findComponent(fixture, 'app-independent-counter');
       const count = 5;
       el.triggerEventHandler('countChange', 5);
-      expect(console.log).toHaveBeenCalledWith('countChange event from IndependentCounter', count);
+      expect(console.log).toHaveBeenCalledWith(
+        'countChange event from IndependentCounter',
+        count,
+      );
     });
-
   });
 
   it('renders a service counter', () => {
@@ -59,5 +58,4 @@ describe('AppComponent', () => {
     const el = findComponent(fixture, 'app-ngrx-counter');
     expect(el).toBeTruthy();
   });
-
 });

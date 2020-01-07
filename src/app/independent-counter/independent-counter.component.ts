@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output
+} from '@angular/core';
 
 @Component({
   selector: 'app-independent-counter',
@@ -6,7 +12,6 @@ import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core
   styleUrls: ['./independent-counter.component.css']
 })
 export class IndependentCounterComponent implements OnChanges {
-
   @Input()
   public startCount = 0;
 
@@ -37,5 +42,4 @@ export class IndependentCounterComponent implements OnChanges {
   private notify(): void {
     this.countChange.emit(this.count);
   }
-
 }
