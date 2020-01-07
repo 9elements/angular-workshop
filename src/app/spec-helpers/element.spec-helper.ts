@@ -4,6 +4,11 @@ import { DebugElement } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
+// Returns a selector for the 'data-testid' attribute with the given attribute value.
+function testIdSelector(testId: string): string {
+  return `[data-testid="${testId}"]`;
+}
+
 // Finds a single element with a CSS selector.
 // Throws an error if no element was found.
 function queryByCss<T>(fixture: ComponentFixture<T>, selector: string): DebugElement {
@@ -21,12 +26,12 @@ function queryByCss<T>(fixture: ComponentFixture<T>, selector: string): DebugEle
 // Finds an element with the given 'data-testid' attribute.
 // Throws an error if no element was found.
 export function findEl<T>(fixture: ComponentFixture<T>, testId: string): DebugElement {
-  return queryByCss<T>(fixture, `[data-testid="${testId}"]`);
+  return queryByCss<T>(fixture, testIdSelector(testId));
 }
 
 // Finds all elements with the given 'data-testid' attribute.
 export function findEls<T>(fixture: ComponentFixture<T>, testId: string): DebugElement[] {
-  return fixture.debugElement.queryAll(By.css(`[data-testid="${testId}"]`));
+  return fixture.debugElement.queryAll(By.css(testIdSelector(testId)));
 }
 
 // Gets the text content of an element with the given 'data-testid' attribute.
@@ -44,7 +49,7 @@ export function expectText<T>(
   expect(getText(fixture, testId).trim()).toBe(text);
 }
 
-// Expects that the component has the given text content.
+// Expects that the element of a component has the given text content.
 export function expectContent<T>(fixture: ComponentFixture<T>, text: string): void {
   expect(fixture.nativeElement.textContent.trim()).toBe(text);
 }
