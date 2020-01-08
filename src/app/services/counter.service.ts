@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class CounterService {
-
   private count = 0;
 
   private subject: BehaviorSubject<number>;
@@ -39,5 +36,4 @@ export class CounterService {
   private notify(): void {
     this.subject.next(this.count);
   }
-
 }

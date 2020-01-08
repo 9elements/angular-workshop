@@ -11,10 +11,9 @@ import { selectCounter } from '../shared/selectors';
   selector: 'app-ngrx-counter',
   templateUrl: './ngrx-counter.component.html',
   styleUrls: ['./ngrx-counter.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgRxCounterComponent {
-
   public count$: Observable<CounterState>;
 
   constructor(private store: Store<AppState>) {
@@ -35,5 +34,4 @@ export class NgRxCounterComponent {
       this.store.dispatch(reset({ count }));
     }
   }
-
 }

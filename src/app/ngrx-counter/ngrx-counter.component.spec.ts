@@ -8,7 +8,7 @@ import { click, expectText, setFieldValue } from '../spec-helpers/element.spec-h
 import { NgRxCounterComponent } from './ngrx-counter.component';
 
 const mockState: AppState = {
-  counter: 5
+  counter: 5,
 };
 
 const newCount = 15;
@@ -19,14 +19,12 @@ describe('NgRxCounterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NgRxCounterComponent ],
-      providers: [
-        provideMockStore({ initialState: mockState })
-      ]
+      declarations: [NgRxCounterComponent],
+      providers: [provideMockStore({ initialState: mockState })],
     }).compileComponents();
 
     store = TestBed.get(Store);
-    spyOn(store , 'dispatch');
+    spyOn(store, 'dispatch');
 
     fixture = TestBed.createComponent(NgRxCounterComponent);
     fixture.detectChanges();
@@ -59,5 +57,4 @@ describe('NgRxCounterComponent', () => {
     click(fixture, 'reset-button');
     expect(store.dispatch).not.toHaveBeenCalled();
   });
-
 });

@@ -1,5 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
 import { CounterApiService } from './counter-api.service';
@@ -16,8 +19,8 @@ describe('CounterApiService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule ],
-      providers: [ CounterApiService]
+      imports: [HttpClientTestingModule],
+      providers: [CounterApiService],
     });
 
     counterApiService = TestBed.get(CounterApiService);
@@ -25,11 +28,9 @@ describe('CounterApiService', () => {
   });
 
   it('saves the counter', () => {
-    counterApiService.saveCounter(counter).subscribe(
-      (result) => {
-        expect(result).toBe(serverResponse);
-      }
-    );
+    counterApiService.saveCounter(counter).subscribe((result) => {
+      expect(result).toBe(serverResponse);
+    });
 
     const request = httpMock.expectOne({ method: 'GET', url: expectedURL });
     request.flush(serverResponse);
@@ -47,12 +48,11 @@ describe('CounterApiService', () => {
         expect(error.status).toBe(status);
         expect(error.statusText).toBe(statusText);
       },
-      fail
+      fail,
     );
 
     const request = httpMock.expectOne({ method: 'GET', url: expectedURL });
-    request.error(errorEvent, { status: 500, statusText: 'Server error' });
+    request.error(errorEvent, { status, statusText });
     httpMock.verify();
   });
-
 });
