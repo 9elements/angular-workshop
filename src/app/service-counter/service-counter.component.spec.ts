@@ -2,11 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Observable, of } from 'rxjs';
 
 import { CounterService } from '../services/counter.service';
-import {
-  click,
-  expectText,
-  setFieldValue
-} from '../spec-helpers/element.spec-helper';
+import { click, expectText, setFieldValue } from '../spec-helpers/element.spec-helper';
 import { ServiceCounterComponent } from './service-counter.component';
 
 const count = 123;
@@ -23,7 +19,7 @@ const mockCounterService: PartialCounterService = {
   },
   increment(): void {},
   decrement(): void {},
-  reset(): void {}
+  reset(): void {},
 };
 
 describe('ServiceCounterComponent', () => {
@@ -37,7 +33,7 @@ describe('ServiceCounterComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ServiceCounterComponent],
-      providers: [{ provide: CounterService, useValue: mockCounterService }]
+      providers: [{ provide: CounterService, useValue: mockCounterService }],
     }).compileComponents();
   }));
 

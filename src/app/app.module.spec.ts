@@ -4,15 +4,10 @@ import { async, TestBed } from '@angular/core/testing';
 import { AppModule } from './app.module';
 
 describe('AppModule', () => {
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        AppModule
-      ],
-      providers: [
-        { provide: APP_BASE_HREF, useValue: '/' }
-      ]
+      imports: [AppModule],
+      providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
     });
   }));
 
@@ -20,5 +15,4 @@ describe('AppModule', () => {
     const appModule: AppModule = TestBed.get(AppModule);
     expect(appModule).toBeTruthy();
   });
-
 });

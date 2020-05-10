@@ -20,7 +20,7 @@ import { CounterService } from './services/counter.service';
     AppComponent,
     IndependentCounterComponent,
     ServiceCounterComponent,
-    NgRxCounterComponent
+    NgRxCounterComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,8 +30,8 @@ import { CounterService } from './services/counter.service';
     StoreModule.forRoot(reducers, {
       runtimeChecks: {
         strictStateImmutability: true,
-        strictActionImmutability: true
-      }
+        strictActionImmutability: true,
+      },
     }),
 
     // NgRx Effects
@@ -40,10 +40,10 @@ import { CounterService } from './services/counter.service';
     // NgRx Store Dev Tools
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last n states
-      logOnly: environment.production
-    })
+      logOnly: environment.production,
+    }),
   ],
   providers: [CounterService, CounterApiService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

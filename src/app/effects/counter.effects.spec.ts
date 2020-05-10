@@ -10,7 +10,7 @@ import {
   increment,
   reset,
   saveError,
-  saveSuccess
+  saveSuccess,
 } from '../actions/counter.actions';
 import { CounterApiService } from '../services/counter-api.service';
 import { AppState } from '../shared/app-state';
@@ -40,13 +40,13 @@ type PartialCounterApiService = Pick<CounterApiService, 'saveCounter'>;
 const mockCounterApi: PartialCounterApiService = {
   saveCounter(): Observable<{}> {
     return of({});
-  }
+  },
 };
 
 const mockCounterApiError: PartialCounterApiService = {
   saveCounter(): Observable<never> {
     return throwError(apiError);
-  }
+  },
 };
 
 function setup(actions: Action[], counterApi: PartialCounterApiService): CounterEffects {
@@ -57,8 +57,8 @@ function setup(actions: Action[], counterApi: PartialCounterApiService): Counter
       provideMockActions(from(actions)),
       provideMockStore({ initialState: mockState }),
       { provide: CounterApiService, useValue: counterApi },
-      CounterEffects
-    ]
+      CounterEffects,
+    ],
   });
 
   return TestBed.get(CounterEffects);

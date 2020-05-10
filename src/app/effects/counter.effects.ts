@@ -4,7 +4,13 @@ import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
-import { decrement, increment, reset, saveError, saveSuccess } from '../actions/counter.actions';
+import {
+  decrement,
+  increment,
+  reset,
+  saveError,
+  saveSuccess,
+} from '../actions/counter.actions';
 import { CounterApiService } from '../services/counter-api.service';
 import { AppState } from '../shared/app-state';
 
@@ -13,7 +19,7 @@ export class CounterEffects {
   constructor(
     private actions$: Actions,
     private store$: Store<AppState>,
-    private counterApiService: CounterApiService
+    private counterApiService: CounterApiService,
   ) {}
 
   /*
@@ -27,9 +33,9 @@ export class CounterEffects {
       mergeMap(([_, state]) =>
         this.counterApiService.saveCounter(state.counter).pipe(
           map(() => saveSuccess()),
-          catchError(error => of(saveError({ error })))
-        )
-      )
-    )
+          catchError((error) => of(saveError({ error }))),
+        ),
+      ),
+    ),
   );
 }

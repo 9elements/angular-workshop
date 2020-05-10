@@ -2,7 +2,6 @@ import { decrement, increment, reset } from '../actions/counter.actions';
 import { counterReducer, CounterState } from './counter.reducer';
 
 describe('counterReducer', () => {
-
   it('returns an initial state', () => {
     const newState = counterReducer(undefined, { type: 'init' });
     expect(newState).toBe(0);
@@ -32,5 +31,4 @@ describe('counterReducer', () => {
     const newState = counterReducer(state, reset({ count: newCount }));
     expect(newState).toBe(newCount);
   });
-
 });

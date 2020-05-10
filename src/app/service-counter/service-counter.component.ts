@@ -7,10 +7,9 @@ import { CounterService } from '../services/counter.service';
 @Component({
   selector: 'app-service-counter',
   templateUrl: './service-counter.component.html',
-  styleUrls: ['./service-counter.component.css']
+  styleUrls: ['./service-counter.component.css'],
 })
 export class ServiceCounterComponent {
-
   public count$: Observable<CounterState>;
 
   constructor(private counterService: CounterService) {
@@ -28,5 +27,4 @@ export class ServiceCounterComponent {
   public reset(newCount: string): void {
     this.counterService.reset(parseInt(newCount, 10));
   }
-
 }
