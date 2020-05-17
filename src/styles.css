@@ -5,9 +5,11 @@
 }
 
 body {
-  font-family: sans-serif;
   margin: 1rem;
   padding: 0;
+  font-family: sans-serif;
+  background-color: #fff;
+  color: black;
 }
 
 h1 {
