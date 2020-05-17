@@ -1,7 +1,44 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   font-family: sans-serif;
+  margin: 1rem;
+  padding: 0;
 }
 
 h1 {
   font-size: 1.2rem;
+}
+
+h1,
+p {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+button,
+input[type='text'],
+input[type='number'],
+input[type='email'] {
+  border: 0;
+  padding: 0 0.5rem;
+  font-size: inherit;
+  line-height: 1;
+  height: 2rem;
+}
+
+button {
+  background-color: #1976d2;
+  color: #fff;
+}
+
+input[type='text'],
+input[type='number'],
+input[type='email'] {
+  background-color: #fff;
+  border: 1px solid #1976d2;
 }
