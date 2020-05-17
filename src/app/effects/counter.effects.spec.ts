@@ -61,7 +61,7 @@ function setup(actions: Action[], counterApi: PartialCounterApiService): Counter
     ],
   });
 
-  return TestBed.get(CounterEffects);
+  return TestBed.inject(CounterEffects);
 }
 
 function expectSaveOnChange(action: Action, counterApi: PartialCounterApiService): void {

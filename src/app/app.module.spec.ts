@@ -12,7 +12,7 @@ describe('AppModule', () => {
   }));
 
   it('initializes', () => {
-    const appModule: AppModule = TestBed.get(AppModule);
+    const appModule = TestBed.inject(AppModule);
     expect(appModule).toBeTruthy();
   });
 });

@@ -21,7 +21,7 @@ describe('CounterService', () => {
     TestBed.configureTestingModule({
       providers: [CounterService],
     });
-    counterService = TestBed.get(CounterService);
+    counterService = TestBed.inject(CounterService);
   });
 
   it('returns the count', () => {

@@ -23,8 +23,8 @@ describe('CounterApiService', () => {
       providers: [CounterApiService],
     });
 
-    counterApiService = TestBed.get(CounterApiService);
-    httpMock = TestBed.get(HttpTestingController);
+    counterApiService = TestBed.inject(CounterApiService);
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
   it('saves the counter', () => {
