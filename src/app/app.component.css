@@ -1,0 +1,14 @@
+section {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+section > * {
+  flex: 1;
+  margin-right: 1rem;
+}
+
+section > :last-child {
+  margin-right: 0;
+}
