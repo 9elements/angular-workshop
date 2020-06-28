@@ -35,7 +35,7 @@ function expectActions(effect: Observable<Action>, actions: Action[]): void {
 
 // Mocks for CounterApiService
 
-type PartialCounterApiService = Pick<CounterApiService, 'saveCounter'>;
+type PartialCounterApiService = Pick<CounterApiService, keyof CounterApiService>;
 
 const mockCounterApi: PartialCounterApiService = {
   saveCounter(): Observable<{}> {

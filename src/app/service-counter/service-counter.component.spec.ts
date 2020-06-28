@@ -8,10 +8,7 @@ import { ServiceCounterComponent } from './service-counter.component';
 const count = 123;
 const newCount = 456;
 
-type PartialCounterService = Pick<
-  CounterService,
-  'getCount' | 'increment' | 'decrement' | 'reset'
->;
+type PartialCounterService = Pick<CounterService, keyof CounterService>;
 
 const mockCounterService: PartialCounterService = {
   getCount(): Observable<number> {
