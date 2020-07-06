@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 
 import { AppComponent } from './app.component';
 import { CounterEffects } from './effects/counter.effects';
-import { IndependentCounterComponent } from './independent-counter/independent-counter.component';
+import { CounterComponent } from './counter/counter.component';
 import { NgRxCounterComponent } from './ngrx-counter/ngrx-counter.component';
 import { reducers } from './reducers';
 import { ServiceCounterComponent } from './service-counter/service-counter.component';
@@ -18,7 +18,7 @@ import { CounterService } from './services/counter.service';
 @NgModule({
   declarations: [
     AppComponent,
-    IndependentCounterComponent,
+    CounterComponent,
     ServiceCounterComponent,
     NgRxCounterComponent,
   ],

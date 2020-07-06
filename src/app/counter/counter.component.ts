@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-independent-counter',
-  templateUrl: './independent-counter.component.html',
-  styleUrls: ['./independent-counter.component.css'],
+  selector: 'app-counter',
+  templateUrl: './counter.component.html',
+  styleUrls: ['./counter.component.css'],
 })
-export class IndependentCounterComponent implements OnChanges {
+export class CounterComponent implements OnChanges {
   @Input()
   public startCount = 0;
 

@@ -4,7 +4,7 @@
 
 This repository builds a simple counter with Angular in three ways:
 
-- `IndependentCounterComponent`: Counter that manages its own state. Has an Input and an Output.
+- `CounterComponent`: Counter that manages its own state. Has an Input and an Output.
 - `ServiceCounterComponent`: Counter that stores the state in shared service.
 - `NgRxCounterComponent`: Counter that uses NgRx to manage the count and NgRx effects to persist them on the server.
 

@@ -28,18 +28,18 @@ describe('AppComponent', () => {
 
   describe('independent counter', () => {
     it('renders an independent counter', () => {
-      const el = findComponent(fixture, 'app-independent-counter');
+      const el = findComponent(fixture, 'app-counter');
       expect(el).toBeTruthy();
     });
 
     it('passes a start count', () => {
-      const el = findComponent(fixture, 'app-independent-counter');
+      const el = findComponent(fixture, 'app-counter');
       expect(el.properties.startCount).toBe(5);
     });
 
     it('listens for count changes', () => {
       spyOn(console, 'log');
-      const el = findComponent(fixture, 'app-independent-counter');
+      const el = findComponent(fixture, 'app-counter');
       const count = 5;
       el.triggerEventHandler('countChange', 5);
       expect(console.log).toHaveBeenCalledWith(

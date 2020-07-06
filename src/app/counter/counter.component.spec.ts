@@ -2,14 +2,14 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { take, toArray } from 'rxjs/operators';
 
 import { click, expectText, setFieldValue } from '../spec-helpers/element.spec-helper';
-import { IndependentCounterComponent } from './independent-counter.component';
+import { CounterComponent } from './counter.component';
 
 const startCount = 123;
 const newCount = 456;
 
-describe('IndependentCounterComponent', () => {
-  let component: IndependentCounterComponent;
-  let fixture: ComponentFixture<IndependentCounterComponent>;
+describe('CounterComponent', () => {
+  let component: CounterComponent;
+  let fixture: ComponentFixture<CounterComponent>;
 
   function expectCount(count: number): void {
     expectText(fixture, 'count', String(count));
@@ -17,12 +17,12 @@ describe('IndependentCounterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [IndependentCounterComponent],
+      declarations: [CounterComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(IndependentCounterComponent);
+    fixture = TestBed.createComponent(CounterComponent);
     component = fixture.componentInstance;
     component.startCount = startCount;
     component.ngOnChanges();
@@ -53,9 +53,9 @@ describe('IndependentCounterComponent', () => {
   });
 
   it('emits countChange events', () => {
-    let events: number[] | undefined;
-    component.countChange.pipe(take(3), toArray()).subscribe((actualEvents) => {
-      events = actualEvents;
+    let actualCounts: number[] | undefined;
+    component.countChange.pipe(take(3), toArray()).subscribe((counts) => {
+      actualCounts = counts;
     });
 
     click(fixture, 'increment-button');
@@ -63,6 +63,6 @@ describe('IndependentCounterComponent', () => {
     setFieldValue(fixture, 'reset-input', String(newCount));
     click(fixture, 'reset-button');
 
-    expect(events).toEqual([startCount + 1, startCount, newCount]);
+    expect(actualCounts).toEqual([startCount + 1, startCount, newCount]);
   });
 });
