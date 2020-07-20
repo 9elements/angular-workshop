@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Observable, of } from 'rxjs';
 
-import { CounterService } from '../services/counter.service';
-import { click, expectText, setFieldValue } from '../spec-helpers/element.spec-helper';
+import { CounterService } from '../../services/counter.service';
+import { click, expectText, setFieldValue } from '../../spec-helpers/element.spec-helper';
 import { ServiceCounterComponent } from './service-counter.component';
 
 const count = 123;

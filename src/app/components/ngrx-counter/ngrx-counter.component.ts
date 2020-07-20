@@ -2,10 +2,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { decrement, increment, reset } from '../actions/counter.actions';
-import { CounterState } from '../reducers/counter.reducer';
-import { AppState } from '../shared/app-state';
-import { selectCounter } from '../shared/selectors';
+import { decrement, increment, reset } from '../../actions/counter.actions';
+import { CounterState } from '../../reducers/counter.reducer';
+import { AppState } from '../../shared/app-state';
+import { selectCounter } from '../../shared/selectors';
 
 @Component({
   selector: 'app-ngrx-counter',

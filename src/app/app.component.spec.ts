@@ -21,41 +21,8 @@ describe('AppComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create the app', () => {
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
-  describe('independent counter', () => {
-    it('renders an independent counter', () => {
-      const el = findComponent(fixture, 'app-counter');
-      expect(el).toBeTruthy();
-    });
-
-    it('passes a start count', () => {
-      const el = findComponent(fixture, 'app-counter');
-      expect(el.properties.startCount).toBe(5);
-    });
-
-    it('listens for count changes', () => {
-      spyOn(console, 'log');
-      const el = findComponent(fixture, 'app-counter');
-      const count = 5;
-      el.triggerEventHandler('countChange', 5);
-      expect(console.log).toHaveBeenCalledWith(
-        'countChange event from CounterComponent',
-        count,
-      );
-    });
-  });
-
-  it('renders a service counter', () => {
-    const el = findComponent(fixture, 'app-service-counter');
-    expect(el).toBeTruthy();
-  });
-
-  it('renders a NgRx counter', () => {
-    const el = findComponent(fixture, 'app-ngrx-counter');
+  it('contains a router outlet', () => {
+    const el = findComponent(fixture, 'router-outlet');
     expect(el).toBeTruthy();
   });
 });
