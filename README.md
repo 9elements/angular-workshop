@@ -4,9 +4,9 @@
 
 This repository builds a simple counter with Angular in three ways:
 
-- `CounterComponent`: Counter that manages its own state. Has an Input and an Output.
-- `ServiceCounterComponent`: Counter that stores the state in shared service.
-- `NgRxCounterComponent`: Counter that uses NgRx to manage the count and NgRx effects to persist them on the server.
+- [CounterComponent](https://github.com/9elements/angular-workshop/tree/master/src/app/components/counter/): Counter that manages its own state. Has an Input and an Output.
+- [ServiceCounterComponent](https://github.com/9elements/angular-workshop/tree/master/src/app/components/service-counter): Counter that stores the state in shared service.
+- [NgRxCounterComponent](https://github.com/9elements/angular-workshop/tree/master/src/app/components/ngrx-counter): Counter that uses NgRx to manage the count and NgRx effects to persist them on the server.
 
 ## Related
 
