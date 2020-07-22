@@ -5,14 +5,12 @@ import { CounterService } from '../../services/counter.service';
 import { click, expectText, setFieldValue } from '../../spec-helpers/element.spec-helper';
 import { ServiceCounterComponent } from './service-counter.component';
 
-const count = 123;
-const newCount = 456;
-
+const currentCount = 123;
 type PartialCounterService = Pick<CounterService, keyof CounterService>;
 
 const mockCounterService: PartialCounterService = {
   getCount(): Observable<number> {
-    return of(count);
+    return of(currentCount);
   },
   increment(): void {},
   decrement(): void {},
@@ -40,7 +38,7 @@ describe('ServiceCounterComponent', () => {
   });
 
   it('shows the count', () => {
-    expectText(fixture, 'count', String(count));
+    expectText(fixture, 'count', String(currentCount));
     expect(mockCounterService.getCount).toHaveBeenCalled();
   });
 
@@ -55,6 +53,7 @@ describe('ServiceCounterComponent', () => {
   });
 
   it('resets the count', () => {
+    const newCount = 456;
     setFieldValue(fixture, 'reset-input', String(newCount));
     click(fixture, 'reset-button');
     expect(mockCounterService.reset).toHaveBeenCalledWith(newCount);
