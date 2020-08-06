@@ -1,5 +1,4 @@
-import { TestBed } from '@angular/core/testing';
-import { take } from 'rxjs/operators';
+import { first } from 'rxjs/operators';
 
 import { CounterService } from './counter.service';
 
@@ -10,7 +9,7 @@ describe('CounterService', () => {
     let actualCount: number | undefined;
     counterService
       .getCount()
-      .pipe(take(1))
+      .pipe(first())
       .subscribe((actualCount2) => {
         actualCount = actualCount2;
       });
@@ -18,10 +17,7 @@ describe('CounterService', () => {
   }
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [CounterService],
-    });
-    counterService = TestBed.inject(CounterService);
+    counterService = new CounterService();
   });
 
   it('returns the count', () => {
