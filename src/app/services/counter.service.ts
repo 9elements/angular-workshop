@@ -3,6 +3,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
 export class CounterService {
+  // Technically, this property is not necessary since the BehaviorSubject
+  // below already holds the current count. We are keeping it for clarity.
   private count = 0;
 
   private subject: BehaviorSubject<number>;
