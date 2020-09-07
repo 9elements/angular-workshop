@@ -20,9 +20,9 @@
     "@angular/platform-browser": "~10.1.0",
     "@angular/platform-browser-dynamic": "~10.1.0",
     "@angular/router": "~10.1.0",
-    "@ngrx/effects": "^9.1.2",
-    "@ngrx/store": "^9.1.2",
-    "@ngrx/store-devtools": "^9.1.2",
+    "@ngrx/effects": "^10.0.0",
+    "@ngrx/store": "^10.0.0",
+    "@ngrx/store-devtools": "^10.0.0",
     "rxjs": "~6.6.3",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
