@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 import { provideMockStore } from '@ngrx/store/testing';
 
@@ -17,8 +17,8 @@ describe('NgRxCounterComponent', () => {
   let fixture: ComponentFixture<NgRxCounterComponent>;
   let store: Store<AppState>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [NgRxCounterComponent],
       providers: [provideMockStore({ initialState: mockState })],
     }).compileComponents();
@@ -28,7 +28,7 @@ describe('NgRxCounterComponent', () => {
 
     fixture = TestBed.createComponent(NgRxCounterComponent);
     fixture.detectChanges();
-  }));
+  });
 
   it('shows the count', () => {
     expectText(fixture, 'count', String(mockState.counter));

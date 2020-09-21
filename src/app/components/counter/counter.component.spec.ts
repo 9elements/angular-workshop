@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { take, toArray } from 'rxjs/operators';
 
 import { click, expectText, setFieldValue } from '../../spec-helpers/element.spec-helper';
@@ -15,13 +15,11 @@ describe('CounterComponent', () => {
     expectText(fixture, 'count', String(count));
   }
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [CounterComponent],
     }).compileComponents();
-  }));
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(CounterComponent);
     component = fixture.componentInstance;
     component.startCount = startCount;

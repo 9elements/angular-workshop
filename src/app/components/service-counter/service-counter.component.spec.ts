@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { CounterService } from '../../services/counter.service';
 import { click, expectText, setFieldValue } from '../../spec-helpers/element.spec-helper';
@@ -11,14 +11,12 @@ describe('ServiceCounterComponent: integration test', () => {
   let component: ServiceCounterComponent;
   let fixture: ComponentFixture<ServiceCounterComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [ServiceCounterComponent],
       providers: [CounterService],
     }).compileComponents();
-  }));
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(ServiceCounterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -55,7 +53,7 @@ describe('ServiceCounterComponent: unit test', () => {
   let fakeCount$: BehaviorSubject<number>;
   let fakeCounterService: Pick<CounterService, keyof CounterService>;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     fakeCount$ = new BehaviorSubject(0);
 
     fakeCounterService = {
@@ -77,13 +75,11 @@ describe('ServiceCounterComponent: unit test', () => {
     spyOn(fakeCounterService, 'decrement').and.callThrough();
     spyOn(fakeCounterService, 'reset').and.callThrough();
 
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       declarations: [ServiceCounterComponent],
       providers: [{ provide: CounterService, useValue: fakeCounterService }],
     }).compileComponents();
-  }));
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(ServiceCounterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

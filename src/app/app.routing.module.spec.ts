@@ -1,6 +1,6 @@
 import { APP_BASE_HREF, Location } from '@angular/common';
 import { Component, forwardRef, Type } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Router, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -12,12 +12,12 @@ import { NgRxCounterComponent } from './components/ngrx-counter/ngrx-counter.com
 import { ServiceCounterComponent } from './components/service-counter/service-counter.component';
 
 describe('AppRoutingModule', () => {
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [AppRoutingModule],
       providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
     });
-  }));
+  });
 
   it('initializes', () => {
     const appRoutingModule = TestBed.inject(AppRoutingModule);
@@ -60,12 +60,12 @@ describe('AppRoutingModule: routes', () => {
     expect(fixture.debugElement.query(By.directive(component))).toBeTruthy();
   }
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [RouterTestingModule.withRoutes(fakeRoutes)],
       declarations: [RouterOutletComponent],
-    });
-  }));
+    }).compileComponents();
+  });
 
   beforeEach(() => {
     router = TestBed.inject(Router);
