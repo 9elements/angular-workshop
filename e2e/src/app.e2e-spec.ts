@@ -3,8 +3,11 @@ import { browser } from 'protractor';
 import { AppPage } from './app.po';
 
 const initialState = [
+  // Independent counters
   '5', '8', '10',
+  // Service counters
   '0', '0', '0',
+  // NgRx counters
   '0', '0', '0',
 ];
 
@@ -23,7 +26,6 @@ describe('angular-workshop App', () => {
   });
 
   describe('independent counter', () => {
-
     const counterIndex = 0;
 
     beforeAll(() => {
@@ -33,8 +35,11 @@ describe('angular-workshop App', () => {
     it('increments the count', () => {
       page.getIncrementButton(counterIndex).click();
       expect(page.getCountTexts()).toEqual([
+        // Independent counters
         '6', '8', '10',
+        // Service counters
         '0', '0', '0',
+        // NgRx counters
         '0', '0', '0',
       ]);
     });
@@ -48,16 +53,17 @@ describe('angular-workshop App', () => {
       page.getResetInput(counterIndex).sendKeys(newCount);
       page.getResetButton(counterIndex).click();
       expect(page.getCountTexts()).toEqual([
+        // Independent counters
         newCount, '8', '10',
+        // Service counters
         '0', '0', '0',
+        // NgRx counters
         '0', '0', '0',
       ]);
     });
-
   });
 
   describe('counter connected to the service', () => {
-
     const counterIndex = 3;
 
     beforeAll(() => {
@@ -67,8 +73,11 @@ describe('angular-workshop App', () => {
     it('increments the count', () => {
       page.getIncrementButton(counterIndex).click();
       expect(page.getCountTexts()).toEqual([
+        // Independent counters
         '5', '8', '10',
+        // Service counters
         '1', '1', '1',
+        // NgRx counters
         '0', '0', '0',
       ]);
     });
@@ -82,16 +91,17 @@ describe('angular-workshop App', () => {
       page.getResetInput(counterIndex).sendKeys(newCount);
       page.getResetButton(counterIndex).click();
       expect(page.getCountTexts()).toEqual([
+        // Independent counters
         '5', '8', '10',
+        // Service counters
         newCount, newCount, newCount,
+        // NgRx counters
         '0', '0', '0',
       ]);
     });
-
   });
 
   describe('NgRx counter', () => {
-
     const counterIndex = 6;
 
     beforeAll(() => {
@@ -101,8 +111,11 @@ describe('angular-workshop App', () => {
     it('increments the count', () => {
       page.getIncrementButton(counterIndex).click();
       expect(page.getCountTexts()).toEqual([
+        // Independent counters
         '5', '8', '10',
+        // Service counters
         '0', '0', '0',
+        // NgRx counters
         '1', '1', '1',
       ]);
     });
@@ -116,12 +129,13 @@ describe('angular-workshop App', () => {
       page.getResetInput(counterIndex).sendKeys(newCount);
       page.getResetButton(counterIndex).click();
       expect(page.getCountTexts()).toEqual([
+        // Independent counters
         '5', '8', '10',
+        // Service counters
         '0', '0', '0',
+        // NgRx counters
         newCount, newCount, newCount,
       ]);
     });
-
   });
-
 });
