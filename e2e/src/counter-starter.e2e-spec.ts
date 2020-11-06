@@ -1,6 +1,6 @@
 import { $, browser } from 'protractor';
 
-describe('Counter', () => {
+describe('Counter (starter)', () => {
   beforeEach(() => {
     browser.get('/');
   });

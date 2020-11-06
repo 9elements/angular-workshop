@@ -2,7 +2,7 @@ import { browser } from 'protractor';
 
 import { findEl } from '../e2e.spec-helper';
 
-describe('Counter', () => {
+describe('Counter (with helpers)', () => {
   beforeEach(() => {
     browser.get('/');
   });

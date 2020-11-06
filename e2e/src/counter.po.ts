@@ -1,13 +1,8 @@
-import {
-  browser,
-  promise,
-  ElementArrayFinder,
-  ElementFinder
-} from 'protractor';
+import { browser, promise, ElementArrayFinder, ElementFinder } from 'protractor';
 
 import { findEls } from '../e2e.spec-helper';
 
-export class AppPage {
+export class CounterPage {
   public navigateTo(): promise.Promise<any> {
     return browser.get('/');
   }
@@ -19,7 +14,7 @@ export class AppPage {
   public getCountTexts(): promise.Promise<unknown[]> {
     return this.getCounts().map(
       // tslint:disable-next-line: no-non-null-assertion
-      (el) => el!.getText()
+      (el) => el!.getText(),
     );
   }
 

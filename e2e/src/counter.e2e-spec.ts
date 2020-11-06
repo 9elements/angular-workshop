@@ -1,23 +1,29 @@
 import { browser } from 'protractor';
 
-import { AppPage } from './app.po';
+import { CounterPage } from './counter.po';
 
 const initialState = [
   // Independent counters
-  '5', '8', '10',
+  '5',
+  '8',
+  '10',
   // Service counters
-  '0', '0', '0',
+  '0',
+  '0',
+  '0',
   // NgRx counters
-  '0', '0', '0',
+  '0',
+  '0',
+  '0',
 ];
 
 const newCount = '123';
 
-describe('angular-workshop App', () => {
-  let page: AppPage;
+describe('Counter (testing all counters on the page)', () => {
+  let page: CounterPage;
 
   beforeEach(() => {
-    page = new AppPage();
+    page = new CounterPage();
   });
 
   it('renders start counts', () => {
@@ -36,11 +42,17 @@ describe('angular-workshop App', () => {
       page.getIncrementButton(counterIndex).click();
       expect(page.getCountTexts()).toEqual([
         // Independent counters
-        '6', '8', '10',
+        '6',
+        '8',
+        '10',
         // Service counters
-        '0', '0', '0',
+        '0',
+        '0',
+        '0',
         // NgRx counters
-        '0', '0', '0',
+        '0',
+        '0',
+        '0',
       ]);
     });
 
@@ -54,11 +66,17 @@ describe('angular-workshop App', () => {
       page.getResetButton(counterIndex).click();
       expect(page.getCountTexts()).toEqual([
         // Independent counters
-        newCount, '8', '10',
+        newCount,
+        '8',
+        '10',
         // Service counters
-        '0', '0', '0',
+        '0',
+        '0',
+        '0',
         // NgRx counters
-        '0', '0', '0',
+        '0',
+        '0',
+        '0',
       ]);
     });
   });
@@ -74,11 +92,17 @@ describe('angular-workshop App', () => {
       page.getIncrementButton(counterIndex).click();
       expect(page.getCountTexts()).toEqual([
         // Independent counters
-        '5', '8', '10',
+        '5',
+        '8',
+        '10',
         // Service counters
-        '1', '1', '1',
+        '1',
+        '1',
+        '1',
         // NgRx counters
-        '0', '0', '0',
+        '0',
+        '0',
+        '0',
       ]);
     });
 
@@ -92,11 +116,17 @@ describe('angular-workshop App', () => {
       page.getResetButton(counterIndex).click();
       expect(page.getCountTexts()).toEqual([
         // Independent counters
-        '5', '8', '10',
+        '5',
+        '8',
+        '10',
         // Service counters
-        newCount, newCount, newCount,
+        newCount,
+        newCount,
+        newCount,
         // NgRx counters
-        '0', '0', '0',
+        '0',
+        '0',
+        '0',
       ]);
     });
   });
@@ -112,11 +142,17 @@ describe('angular-workshop App', () => {
       page.getIncrementButton(counterIndex).click();
       expect(page.getCountTexts()).toEqual([
         // Independent counters
-        '5', '8', '10',
+        '5',
+        '8',
+        '10',
         // Service counters
-        '0', '0', '0',
+        '0',
+        '0',
+        '0',
         // NgRx counters
-        '1', '1', '1',
+        '1',
+        '1',
+        '1',
       ]);
     });
 
@@ -130,11 +166,17 @@ describe('angular-workshop App', () => {
       page.getResetButton(counterIndex).click();
       expect(page.getCountTexts()).toEqual([
         // Independent counters
-        '5', '8', '10',
+        '5',
+        '8',
+        '10',
         // Service counters
-        '0', '0', '0',
+        '0',
+        '0',
+        '0',
         // NgRx counters
-        newCount, newCount, newCount,
+        newCount,
+        newCount,
+        newCount,
       ]);
     });
   });
