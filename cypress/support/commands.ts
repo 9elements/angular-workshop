@@ -50,7 +50,5 @@ Cypress.Commands.add(
     options?: Partial<
       Cypress.Loggable & Cypress.Timeoutable & Cypress.Withinable & Cypress.Shadow
     >,
-  ): Cypress.Chainable<JQuery<E>> => {
-    return cy.get(`[data-testid="${id}"]`, options);
-  },
+  ): Cypress.Chainable<JQuery<E>> => cy.get(`[data-testid="${id}"]`, options),
 );
