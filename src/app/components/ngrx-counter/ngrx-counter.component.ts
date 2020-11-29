@@ -28,8 +28,8 @@ export class NgRxCounterComponent {
     this.store.dispatch(decrement());
   }
 
-  public reset(countString: string): void {
-    const count = parseInt(countString, 10);
+  public reset(newCount: string): void {
+    const count = parseInt(newCount, 10);
     if (!Number.isNaN(count)) {
       this.store.dispatch(reset({ count }));
     }

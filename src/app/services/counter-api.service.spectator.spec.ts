@@ -1,9 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
-import { TestBed } from '@angular/core/testing';
+import { createHttpFactory, HttpMethod, SpectatorHttp } from '@ngneat/spectator';
 
 import { CounterApiService } from './counter-api.service';
 
@@ -13,29 +9,22 @@ const serverResponse = {};
 
 const errorEvent = new ErrorEvent('API error');
 
-describe('CounterApiService', () => {
-  let counterApiService: CounterApiService;
-  let httpMock: HttpTestingController;
+describe('CounterApiService with spectator', () => {
+  let spectator: SpectatorHttp<CounterApiService>;
+  const createHttp = createHttpFactory(CounterApiService);
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [CounterApiService],
-    });
-
-    counterApiService = TestBed.inject(CounterApiService);
-    httpMock = TestBed.inject(HttpTestingController);
+    spectator = createHttp();
   });
 
   it('saves the counter', () => {
     let actualResult: any;
-    counterApiService.saveCounter(counter).subscribe((result) => {
+    spectator.service.saveCounter(counter).subscribe((result) => {
       actualResult = result;
     });
 
-    const request = httpMock.expectOne({ method: 'GET', url: expectedURL });
+    const request = spectator.expectOne(expectedURL, HttpMethod.GET);
     request.flush(serverResponse);
-    httpMock.verify();
 
     expect(actualResult).toBe(serverResponse);
   });
@@ -46,7 +35,7 @@ describe('CounterApiService', () => {
 
     let actualError: HttpErrorResponse | undefined;
 
-    counterApiService.saveCounter(counter).subscribe(
+    spectator.service.saveCounter(counter).subscribe(
       fail,
       (error: HttpErrorResponse) => {
         actualError = error;
@@ -54,9 +43,8 @@ describe('CounterApiService', () => {
       fail,
     );
 
-    const request = httpMock.expectOne({ method: 'GET', url: expectedURL });
+    const request = spectator.expectOne(expectedURL, HttpMethod.GET);
     request.error(errorEvent, { status, statusText });
-    httpMock.verify();
 
     if (!actualError) {
       throw new Error('actualError not defined');

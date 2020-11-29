@@ -6,7 +6,7 @@ import { MockComponent } from 'ng-mocks';
 import { CounterComponent } from '../counter/counter.component';
 import { HomeComponent } from './home.component';
 
-describe('HomeComponent (with ng-mocks)', () => {
+describe('HomeComponent with ng-mocks', () => {
   let fixture: ComponentFixture<HomeComponent>;
   let component: HomeComponent;
   let counter: CounterComponent;

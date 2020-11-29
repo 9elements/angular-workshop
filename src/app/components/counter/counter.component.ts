@@ -29,8 +29,11 @@ export class CounterComponent implements OnChanges {
   }
 
   public reset(newCount: string): void {
-    this.count = parseInt(newCount, 10);
-    this.notify();
+    const count = parseInt(newCount, 10);
+    if (!Number.isNaN(count)) {
+      this.count = count;
+      this.notify();
+    }
   }
 
   private notify(): void {

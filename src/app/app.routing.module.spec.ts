@@ -10,6 +10,7 @@ import { CounterComponent } from './components/counter/counter.component';
 import { HomeComponent } from './components/home/home.component';
 import { NgRxCounterComponent } from './components/ngrx-counter/ngrx-counter.component';
 import { ServiceCounterComponent } from './components/service-counter/service-counter.component';
+import { findComponent } from './spec-helpers/element.spec-helper';
 
 describe('AppRoutingModule', () => {
   beforeEach(() => {

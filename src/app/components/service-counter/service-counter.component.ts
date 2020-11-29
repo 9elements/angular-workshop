@@ -25,6 +25,9 @@ export class ServiceCounterComponent {
   }
 
   public reset(newCount: string): void {
-    this.counterService.reset(parseInt(newCount, 10));
+    const count = parseInt(newCount, 10);
+    if (!Number.isNaN(count)) {
+      this.counterService.reset(count);
+    }
   }
 }

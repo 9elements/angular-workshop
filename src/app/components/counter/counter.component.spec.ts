@@ -50,6 +50,13 @@ describe('CounterComponent', () => {
     expectCount(newCount);
   });
 
+  it('does not reset if the value is not a number', () => {
+    const value = 'not a number';
+    setFieldValue(fixture, 'reset-input', value);
+    click(fixture, 'reset-button');
+    expectCount(startCount);
+  });
+
   it('emits countChange events', () => {
     let actualCounts: number[] | undefined;
     component.countChange.pipe(take(3), toArray()).subscribe((counts) => {

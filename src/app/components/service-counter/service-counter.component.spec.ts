@@ -114,4 +114,12 @@ describe('ServiceCounterComponent: unit test', () => {
     expectText(fixture, 'count', newCount);
     expect(fakeCounterService.reset).toHaveBeenCalled();
   });
+
+  it('does not reset if the value is not a number', () => {
+    const value = 'not a number';
+    setFieldValue(fixture, 'reset-input', value);
+    click(fixture, 'reset-button');
+
+    expect(fakeCounterService.reset).not.toHaveBeenCalled();
+  });
 });

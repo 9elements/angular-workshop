@@ -37,6 +37,7 @@
     "@angular/language-service": "^10.1.5",
     "@briebug/cypress-schematic": "^4.2.0",
     "@cypress/webpack-preprocessor": "5.4.10",
+    "@ngneat/spectator": "^6.1.1",
     "@types/jasmine": "^3.6.0",
     "@types/jasminewd2": "~2.0.8",
     "@types/node": "^14.11.8",
