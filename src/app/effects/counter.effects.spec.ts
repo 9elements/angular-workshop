@@ -28,9 +28,11 @@ const successAction = saveSuccess();
 const errorAction = saveError({ error: apiError });
 
 function expectActions(effect: Observable<Action>, actions: Action[]): void {
-  effect.pipe(toArray()).subscribe((actualActions) => {
-    expect(actualActions).toEqual(actions);
+  let actualActions: Action[] | undefined;
+  effect.pipe(toArray()).subscribe((actualActions2) => {
+    actualActions = actualActions2;
   }, fail);
+  expect(actualActions).toEqual(actions);
 }
 
 // Mocks for CounterApiService
