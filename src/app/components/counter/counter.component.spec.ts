@@ -54,6 +54,7 @@ describe('CounterComponent', () => {
     const value = 'not a number';
     setFieldValue(fixture, 'reset-input', value);
     click(fixture, 'reset-button');
+    fixture.detectChanges();
     expectCount(startCount);
   });
 
