@@ -34,6 +34,14 @@ input[type='email'] {
 }
 
 button {
+  min-width: 2rem;
+}
+
+button + button {
+  margin-left: 3px;
+}
+
+button {
   background-color: #1976d2;
   color: #fff;
 }
