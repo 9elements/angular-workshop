@@ -8,7 +8,7 @@ This repository builds a simple counter with Angular in three ways:
 - [ServiceCounterComponent](src/app/components/service-counter): Counter that stores the state in shared service.
 - [NgRxCounterComponent](src/app/components/ngrx-counter): Counter that uses NgRx to manage the count and NgRx effects to persist them on the server.
 
-## Related
+## Related projects
 
 - [Angular Flickr Search](https://github.com/9elements/angular-flickr-search) – a more complex example app
 - [Angular testing workshop](https://9elements.github.io/angular-testing-workshop/)
