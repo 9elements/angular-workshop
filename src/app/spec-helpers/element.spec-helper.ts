@@ -121,7 +121,7 @@ export function expectContent<T>(fixture: ComponentFixture<T>, text: string): vo
 export function dispatchFakeEvent(
   element: EventTarget,
   type: string,
-  bubbles: boolean,
+  bubbles: boolean = false,
 ): void {
   const event = document.createEvent('Event');
   event.initEvent(type, bubbles, false);
@@ -129,8 +129,10 @@ export function dispatchFakeEvent(
 }
 
 /**
- * Enters text into a form field. Triggers appropriate events so Angular
- * If you listen for the `change` event, you need to trigger it separately.
+ * Enters text into a form field (`input`, `textarea` or `select` element).
+ * Triggers appropriate events so Angular takes notice of the change.
+ * If you listen for the `change` event on `input` or `textarea`,
+ * you need to trigger it separately.
  *
  * @param element Form field
  * @param value Form field value
@@ -159,6 +161,25 @@ export function setFieldValue<T>(
   value: string,
 ): void {
   setFieldElementValue(findEl(fixture, testId).nativeElement, value);
+}
+
+/**
+ * Checks a checkbox.
+ * Triggers appropriate events so Angular takes notice of the change.
+ *
+ * @param fixture Component fixture
+ * @param testId Test id set by `data-testid`
+ * @param checked Whether the checkbox should be checked
+ */
+export function setCheckboxValue<T>(
+  fixture: ComponentFixture<T>,
+  testId: string,
+  checked: boolean,
+): void {
+  const { nativeElement } = findEl(fixture, testId);
+  nativeElement.checked = checked;
+  // Dispatch a `change` fake event so Angular form bindings take notice of the change.
+  dispatchFakeEvent(nativeElement, 'change');
 }
 
 /**
