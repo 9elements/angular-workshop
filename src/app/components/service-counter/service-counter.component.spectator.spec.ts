@@ -100,7 +100,7 @@ describe('ServiceCounterComponent: unit test with spectator', () => {
 
   it('does not reset if the value is not a number', () => {
     const value = 'not a number';
-    spectator.typeInElement(String(value), byTestId('reset-input'));
+    spectator.typeInElement(value, byTestId('reset-input'));
     spectator.click(byTestId('reset-button'));
 
     expect(counterService.reset).not.toHaveBeenCalled();
