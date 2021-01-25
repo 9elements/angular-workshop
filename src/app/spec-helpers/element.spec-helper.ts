@@ -164,14 +164,14 @@ export function setFieldValue<T>(
 }
 
 /**
- * Checks a checkbox.
+ * Checks or unchecks a checkbox or radio button.
  * Triggers appropriate events so Angular takes notice of the change.
  *
  * @param fixture Component fixture
  * @param testId Test id set by `data-testid`
- * @param checked Whether the checkbox should be checked
+ * @param checked Whether the checkbox or radio should be checked
  */
-export function setCheckboxValue<T>(
+export function checkField<T>(
   fixture: ComponentFixture<T>,
   testId: string,
   checked: boolean,
