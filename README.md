@@ -21,9 +21,20 @@ This repository builds a simple counter with Angular in three ways:
 - `ng serve`
 - Navigate to http://localhost:4200/
 
-## Running unit tests
+## Running unit & integration tests
 
-Run `ng test` to execute the unit tests.
+Run `ng test` to execute the unit & integration tests.
+
+## Running end-to-end tests
+
+### Cypress
+
+- Start the development server with `ng serve`
+- In a separate shell, run `npm run e2e:dev:cypress` to execute Cypress end-to-end tests
+
+### Protractor
+
+Run `ng e2e` to execute Cypress end-to-end tests. (This starts the development server automatically.)
 
 ## Deployment
 
