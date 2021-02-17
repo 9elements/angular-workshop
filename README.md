@@ -23,14 +23,15 @@ This repository builds a simple counter with Angular in three ways:
 
 ## Running unit & integration tests
 
-Run `ng test` to execute the unit & integration tests.
+Run `ng test` to execute the unit & integration tests with Karma and Jasmine.
 
 ## Running end-to-end tests
 
 ### Cypress
 
-- Start the development server with `ng serve`
-- In a separate shell, run `npm run e2e:dev:cypress` to execute Cypress end-to-end tests
+Run `ng run angular-workshop:cypress-run` to execute the Cypress end-to-end tests.
+
+Run `ng run angular-workshop:cypress-open` to start the interactive Cypress test runner.
 
 ### Protractor
 
