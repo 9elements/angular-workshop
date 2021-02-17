@@ -84,8 +84,8 @@ describe('Counter (testing all counters on the page)', () => {
   describe('counter connected to the service', () => {
     const counterIndex = 3;
 
-    beforeAll(() => {
-      browser.refresh();
+    beforeAll(async () => {
+      await browser.refresh();
     });
 
     it('increments the count', async () => {
@@ -134,8 +134,8 @@ describe('Counter (testing all counters on the page)', () => {
   describe('NgRx counter', () => {
     const counterIndex = 6;
 
-    beforeAll(() => {
-      browser.refresh();
+    beforeAll(async () => {
+      await browser.refresh();
     });
 
     it('increments the count', async () => {

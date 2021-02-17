@@ -9,8 +9,8 @@ describe('Counter (with helpers and finder reuse)', () => {
   const resetInput = findEl('reset-input');
   const resetButton = findEl('reset-button');
 
-  beforeEach(() => {
-    browser.get('/');
+  beforeEach(async () => {
+    await browser.get('/');
   });
 
   it('increments the count', async () => {
