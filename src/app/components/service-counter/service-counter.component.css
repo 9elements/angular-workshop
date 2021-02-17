@@ -1,6 +1,7 @@
 :host {
   display: block;
   margin-bottom: 1rem;
-  border: 3px solid maroon;
+  border: 4px solid maroon;
+  border-radius: 2px;
   padding: 0 1rem;
 }
