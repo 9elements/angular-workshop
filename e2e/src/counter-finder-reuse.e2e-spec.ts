@@ -13,20 +13,20 @@ describe('Counter (with helpers and finder reuse)', () => {
     browser.get('/');
   });
 
-  it('increments the count', () => {
-    expect(count.getText()).toBe('5');
-    incrementButton.click();
-    expect(count.getText()).toBe('6');
+  it('increments the count', async () => {
+    expect(await count.getText()).toBe('5');
+    await incrementButton.click();
+    expect(await count.getText()).toBe('6');
   });
 
-  it('decrements the count', () => {
-    decrementButton.click();
-    expect(count.getText()).toBe('4');
+  it('decrements the count', async () => {
+    await decrementButton.click();
+    expect(await count.getText()).toBe('4');
   });
 
-  it('resets the count', () => {
-    resetInput.sendKeys('123');
-    resetButton.click();
-    expect(count.getText()).toBe('123');
+  it('resets the count', async () => {
+    await resetInput.sendKeys('123');
+    await resetButton.click();
+    expect(await count.getText()).toBe('123');
   });
 });

@@ -26,21 +26,21 @@ describe('Counter (testing all counters on the page)', () => {
     page = new CounterPage();
   });
 
-  it('renders start counts', () => {
-    page.navigateTo();
-    expect(page.getCountTexts()).toEqual(initialState);
+  it('renders start counts', async () => {
+    await page.navigateTo();
+    expect(await page.getCountTexts()).toEqual(initialState);
   });
 
   describe('independent counter', () => {
     const counterIndex = 0;
 
-    beforeAll(() => {
-      browser.refresh();
+    beforeAll(async () => {
+      await browser.refresh();
     });
 
-    it('increments the count', () => {
-      page.getIncrementButton(counterIndex).click();
-      expect(page.getCountTexts()).toEqual([
+    it('increments the count', async () => {
+      await page.getIncrementButton(counterIndex).click();
+      expect(await page.getCountTexts()).toEqual([
         // Independent counters
         '6',
         '8',
@@ -56,15 +56,15 @@ describe('Counter (testing all counters on the page)', () => {
       ]);
     });
 
-    it('decrements the count', () => {
-      page.getDecrementButton(counterIndex).click();
-      expect(page.getCountTexts()).toEqual(initialState);
+    it('decrements the count', async () => {
+      await page.getDecrementButton(counterIndex).click();
+      expect(await page.getCountTexts()).toEqual(initialState);
     });
 
-    it('resets the count', () => {
-      page.getResetInput(counterIndex).sendKeys(newCount);
-      page.getResetButton(counterIndex).click();
-      expect(page.getCountTexts()).toEqual([
+    it('resets the count', async () => {
+      await page.getResetInput(counterIndex).sendKeys(newCount);
+      await page.getResetButton(counterIndex).click();
+      expect(await page.getCountTexts()).toEqual([
         // Independent counters
         newCount,
         '8',
@@ -88,9 +88,9 @@ describe('Counter (testing all counters on the page)', () => {
       browser.refresh();
     });
 
-    it('increments the count', () => {
-      page.getIncrementButton(counterIndex).click();
-      expect(page.getCountTexts()).toEqual([
+    it('increments the count', async () => {
+      await page.getIncrementButton(counterIndex).click();
+      expect(await page.getCountTexts()).toEqual([
         // Independent counters
         '5',
         '8',
@@ -106,15 +106,15 @@ describe('Counter (testing all counters on the page)', () => {
       ]);
     });
 
-    it('decrements the count', () => {
-      page.getDecrementButton(counterIndex).click();
-      expect(page.getCountTexts()).toEqual(initialState);
+    it('decrements the count', async () => {
+      await page.getDecrementButton(counterIndex).click();
+      expect(await page.getCountTexts()).toEqual(initialState);
     });
 
-    it('resets the count', () => {
-      page.getResetInput(counterIndex).sendKeys(newCount);
-      page.getResetButton(counterIndex).click();
-      expect(page.getCountTexts()).toEqual([
+    it('resets the count', async () => {
+      await page.getResetInput(counterIndex).sendKeys(newCount);
+      await page.getResetButton(counterIndex).click();
+      expect(await page.getCountTexts()).toEqual([
         // Independent counters
         '5',
         '8',
@@ -138,9 +138,9 @@ describe('Counter (testing all counters on the page)', () => {
       browser.refresh();
     });
 
-    it('increments the count', () => {
-      page.getIncrementButton(counterIndex).click();
-      expect(page.getCountTexts()).toEqual([
+    it('increments the count', async () => {
+      await page.getIncrementButton(counterIndex).click();
+      expect(await page.getCountTexts()).toEqual([
         // Independent counters
         '5',
         '8',
@@ -156,15 +156,15 @@ describe('Counter (testing all counters on the page)', () => {
       ]);
     });
 
-    it('decrements the count', () => {
-      page.getDecrementButton(counterIndex).click();
-      expect(page.getCountTexts()).toEqual(initialState);
+    it('decrements the count', async () => {
+      await page.getDecrementButton(counterIndex).click();
+      expect(await page.getCountTexts()).toEqual(initialState);
     });
 
-    it('resets the count', () => {
-      page.getResetInput(counterIndex).sendKeys(newCount);
-      page.getResetButton(counterIndex).click();
-      expect(page.getCountTexts()).toEqual([
+    it('resets the count', async () => {
+      await page.getResetInput(counterIndex).sendKeys(newCount);
+      await page.getResetButton(counterIndex).click();
+      expect(await page.getCountTexts()).toEqual([
         // Independent counters
         '5',
         '8',
