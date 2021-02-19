@@ -1,4 +1,4 @@
-# Angular workshop
+# Angular Counter Component
 
 ## Overview
 
