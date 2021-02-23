@@ -1,5 +1,8 @@
 # Angular Counter Component
 
+📖 This example is part of the **[free online book: Testing Angular – A Guide to Robust Angular Applications
+](https://molily.de/testing-angular/)**. 📖
+
 ## Overview
 
 This repository builds a simple counter with Angular in three ways:
