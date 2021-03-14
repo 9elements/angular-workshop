@@ -184,6 +184,7 @@ export function checkField<T>(
 
 /**
  * Makes a fake click event that provides the most important properties.
+ * Sets the button to left.
  * The event can be passed to DebugElement#triggerEventHandler.
  *
  * @param target Element that is the target of the click event
@@ -198,6 +199,7 @@ export function makeClickEvent(target: EventTarget): Partial<MouseEvent> {
     currentTarget: target,
     bubbles: true,
     cancelable: true,
+    button: 0
   };
 }
 
