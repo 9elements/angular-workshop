@@ -37,7 +37,7 @@
     "@angular/cli": "^12.0.2",
     "@angular/compiler-cli": "^12.0.2",
     "@angular/language-service": "^12.0.2",
-    "@briebug/cypress-schematic": "^4.4.0",
+    "@briebug/cypress-schematic": "^5.0.0",
     "@cypress/webpack-preprocessor": "^5.5.0",
     "@ngneat/spectator": "^6.1.1",
     "@types/jasmine": "~3.6.0",
