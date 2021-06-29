@@ -129,7 +129,7 @@
           "options": {}
         },
         "cypress-run": {
-          "builder": "@briebug/cypress-schematic:cypress",
+          "builder": "@cypress/schematic:cypress",
           "options": {
             "devServerTarget": "angular-workshop:serve"
           },
@@ -140,16 +140,10 @@
           }
         },
         "cypress-open": {
-          "builder": "@briebug/cypress-schematic:cypress",
+          "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "angular-workshop:serve",
             "watch": true,
             "headless": false
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "angular-workshop:serve:production"
-            }
           }
         }
       }
