@@ -40,7 +40,7 @@
     "@ngneat/spectator": "^8.0.2",
     "@types/jasmine": "~3.8.2",
     "@types/node": "^16.4.13",
-    "angular-cli-ghpages": "^0.6.2",
+    "angular-cli-ghpages": "^1.0.0-rc.2",
     "codelyzer": "^6.0.2",
     "cypress": "^8.2.0",
     "jasmine-core": "~3.8.0",
