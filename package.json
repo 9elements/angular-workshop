@@ -10,7 +10,8 @@
     "e2e": "ng e2e",
     "e2e:dev": "ng e2e --dev-server-target= --no-webdriver-update",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "deploy": "ng deploy --base-href=/angular-workshop/"
   },
   "private": true,
   "license": "Unlicense",
