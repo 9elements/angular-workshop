@@ -48,7 +48,7 @@ function fakeComponent<T>(component: Type<T>): Type<T> {
 // Replace all components in the routes with a fake
 const fakeRoutes: Routes = routes.map((route) => ({
   ...route,
-  // tslint:disable-next-line: no-non-null-assertion
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   component: fakeComponent(route.component!),
 }));
 
@@ -76,7 +76,7 @@ describe('AppRoutingModule: routes', () => {
 
     // Fixes necessary for https://github.com/angular/angular/issues/25837
 
-    // tslint:disable-next-line: no-non-null-assertion
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     fixture.ngZone!.run(() => {
       router.initialNavigation();
     });
@@ -84,7 +84,7 @@ describe('AppRoutingModule: routes', () => {
     const originalNavigate = router.navigate;
     router.navigate = (commands, extras) => {
       let promise: Promise<boolean> = Promise.resolve(false);
-      // tslint:disable-next-line: no-non-null-assertion
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       fixture.ngZone!.run(() => {
         promise = originalNavigate.call(router, commands, extras);
       });
