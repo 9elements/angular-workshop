@@ -19,9 +19,8 @@ describe('HomeComponent', () => {
     fixture.detectChanges();
   });
 
-  it('creates the app', () => {
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+  it('renders without errors', () => {
+    expect(component).toBeTruthy();
   });
 
   describe('independent counter', () => {
