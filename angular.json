@@ -132,8 +132,9 @@
       }
     }
   },
-  "defaultProject": "angular-workshop",
   "cli": {
-    "defaultCollection": "@angular-eslint/schematics"
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }
