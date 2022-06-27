@@ -199,7 +199,7 @@ export function makeClickEvent(target: EventTarget): Partial<MouseEvent> {
     currentTarget: target,
     bubbles: true,
     cancelable: true,
-    button: 0
+    button: 0,
   };
 }
 
