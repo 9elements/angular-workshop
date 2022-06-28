@@ -12,9 +12,15 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 import { CounterComponent } from './components/counter/counter.component';
 import { HomeComponent } from './components/home/home.component';
-import { NgRxCounterComponent } from './components/ngrx-counter/ngrx-counter.component';
-import { ServiceCounterComponent } from './components/service-counter/service-counter.component';
-import { StandaloneCounterComponent } from './components/standalone-counter/standalone-counter.component';
+import {
+  NgRxCounterComponent,
+} from './components/ngrx-counter/ngrx-counter.component';
+import {
+  ServiceCounterComponent,
+} from './components/service-counter/service-counter.component';
+import {
+  StandaloneServiceCounterComponent,
+} from './components/standalone-service-counter/standalone-service-counter.component';
 import { CounterEffects } from './effects/counter.effects';
 import { reducers } from './reducers';
 import { CounterApiService } from './services/counter-api.service';
@@ -33,7 +39,7 @@ import { CounterService } from './services/counter.service';
     HttpClientModule,
 
     AppRoutingModule,
-    StandaloneCounterComponent,
+    StandaloneServiceCounterComponent,
 
     // NgRx Store
     StoreModule.forRoot(reducers, {

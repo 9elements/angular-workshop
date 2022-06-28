@@ -15,18 +15,20 @@ import {
   expectText,
   setFieldValue,
 } from '../../spec-helpers/element.spec-helper';
-import { ServiceCounterComponent } from './service-counter.component';
+import {
+  StandaloneServiceCounterComponent,
+} from './standalone-service-counter.component';
 
-describe('ServiceCounterComponent: integration test', () => {
-  let fixture: ComponentFixture<ServiceCounterComponent>;
+describe('StandaloneServiceCounterComponent: integration test', () => {
+  let fixture: ComponentFixture<StandaloneServiceCounterComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ServiceCounterComponent],
+      imports: [StandaloneServiceCounterComponent],
       providers: [CounterService],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ServiceCounterComponent);
+    fixture = TestBed.createComponent(StandaloneServiceCounterComponent);
     fixture.detectChanges();
   });
 
@@ -55,10 +57,10 @@ describe('ServiceCounterComponent: integration test', () => {
   });
 });
 
-describe('ServiceCounterComponent: unit test', () => {
+describe('StandaloneServiceCounterComponent: unit test', () => {
   const currentCount = 123;
 
-  let fixture: ComponentFixture<ServiceCounterComponent>;
+  let fixture: ComponentFixture<StandaloneServiceCounterComponent>;
   // Declare shared variable
   let fakeCounterService: CounterService;
 
@@ -72,12 +74,12 @@ describe('ServiceCounterComponent: unit test', () => {
     });
 
     await TestBed.configureTestingModule({
-      declarations: [ServiceCounterComponent],
+      imports: [StandaloneServiceCounterComponent],
       // Use fake instead of original
       providers: [{ provide: CounterService, useValue: fakeCounterService }],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ServiceCounterComponent);
+    fixture = TestBed.createComponent(StandaloneServiceCounterComponent);
     fixture.detectChanges();
   });
 
@@ -104,11 +106,10 @@ describe('ServiceCounterComponent: unit test', () => {
   });
 });
 
-describe('ServiceCounterComponent: unit test with minimal Service logic', () => {
+describe('StandaloneServiceCounterComponent: unit test with minimal Service logic', () => {
   const newCount = 456;
 
-  let component: ServiceCounterComponent;
-  let fixture: ComponentFixture<ServiceCounterComponent>;
+  let fixture: ComponentFixture<StandaloneServiceCounterComponent>;
 
   let fakeCount$: BehaviorSubject<number>;
   let fakeCounterService: Pick<CounterService, keyof CounterService>;
@@ -136,12 +137,11 @@ describe('ServiceCounterComponent: unit test with minimal Service logic', () => 
     spyOn(fakeCounterService, 'reset').and.callThrough();
 
     await TestBed.configureTestingModule({
-      declarations: [ServiceCounterComponent],
+      imports: [StandaloneServiceCounterComponent],
       providers: [{ provide: CounterService, useValue: fakeCounterService }],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ServiceCounterComponent);
-    component = fixture.componentInstance;
+    fixture = TestBed.createComponent(StandaloneServiceCounterComponent);
     fixture.detectChanges();
   });
 

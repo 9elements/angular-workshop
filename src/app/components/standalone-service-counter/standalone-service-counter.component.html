@@ -1,0 +1,15 @@
+<h1>Standalone counter connected to the service</h1>
+
+<p>
+  <strong data-testid="count">{{ count$ | async }}</strong>
+</p>
+
+<p>
+  <button (click)="increment()" data-testid="increment-button">+</button>
+  <button (click)="decrement()" data-testid="decrement-button">-</button>
+</p>
+
+<p>
+  <input type="number" #input data-testid="reset-input" />
+  <button (click)="reset(input.value)" data-testid="reset-button">Reset</button>
+</p>

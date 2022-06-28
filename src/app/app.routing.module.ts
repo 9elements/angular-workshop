@@ -1,16 +1,25 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {
+  RouterModule,
+  Routes,
+} from '@angular/router';
 
 import { CounterComponent } from './components/counter/counter.component';
 import { HomeComponent } from './components/home/home.component';
-import { NgRxCounterComponent } from './components/ngrx-counter/ngrx-counter.component';
-import { ServiceCounterComponent } from './components/service-counter/service-counter.component';
-import { StandaloneCounterComponent } from './components/standalone-counter/standalone-counter.component';
+import {
+  NgRxCounterComponent,
+} from './components/ngrx-counter/ngrx-counter.component';
+import {
+  ServiceCounterComponent,
+} from './components/service-counter/service-counter.component';
+import {
+  StandaloneServiceCounterComponent,
+} from './components/standalone-service-counter/standalone-service-counter.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: 'counter-component', component: CounterComponent },
-  { path: 'standalone-counter-component', component: StandaloneCounterComponent },
+  { path: 'standalone-counter-component', component: StandaloneServiceCounterComponent },
   { path: 'service-counter-component', component: ServiceCounterComponent },
   { path: 'ngrx-counter-component', component: NgRxCounterComponent },
 ];
