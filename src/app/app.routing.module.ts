@@ -19,8 +19,8 @@ import {
 export const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: 'counter-component', component: CounterComponent },
-  { path: 'standalone-counter-component', component: StandaloneServiceCounterComponent },
   { path: 'service-counter-component', component: ServiceCounterComponent },
+  { path: 'standalone-service-counter-component', component: StandaloneServiceCounterComponent },
   { path: 'ngrx-counter-component', component: NgRxCounterComponent },
 ];
 

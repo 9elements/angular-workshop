@@ -1,20 +1,9 @@
-import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {
-  BehaviorSubject,
-  Observable,
-  of,
-} from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 import { CounterService } from '../../services/counter.service';
-import {
-  click,
-  expectText,
-  setFieldValue,
-} from '../../spec-helpers/element.spec-helper';
+import { click, expectText, setFieldValue } from '../../spec-helpers/element.spec-helper';
 import { ServiceCounterComponent } from './service-counter.component';
 
 describe('ServiceCounterComponent: integration test', () => {
@@ -117,16 +106,16 @@ describe('ServiceCounterComponent: unit test with minimal Service logic', () => 
     fakeCount$ = new BehaviorSubject(0);
 
     fakeCounterService = {
-      getCount(): Observable<number> {
+      getCount() {
         return fakeCount$;
       },
-      increment(): void {
+      increment() {
         fakeCount$.next(1);
       },
-      decrement(): void {
+      decrement() {
         fakeCount$.next(-1);
       },
-      reset(): void {
+      reset() {
         fakeCount$.next(Number(newCount));
       },
     };

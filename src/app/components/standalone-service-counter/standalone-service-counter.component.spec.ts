@@ -1,23 +1,10 @@
-import {
-  ComponentFixture,
-  TestBed,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {
-  BehaviorSubject,
-  Observable,
-  of,
-} from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 import { CounterService } from '../../services/counter.service';
-import {
-  click,
-  expectText,
-  setFieldValue,
-} from '../../spec-helpers/element.spec-helper';
-import {
-  StandaloneServiceCounterComponent,
-} from './standalone-service-counter.component';
+import { click, expectText, setFieldValue } from '../../spec-helpers/element.spec-helper';
+import { StandaloneServiceCounterComponent } from './standalone-service-counter.component';
 
 describe('StandaloneServiceCounterComponent: integration test', () => {
   let fixture: ComponentFixture<StandaloneServiceCounterComponent>;
@@ -57,56 +44,7 @@ describe('StandaloneServiceCounterComponent: integration test', () => {
   });
 });
 
-describe('StandaloneServiceCounterComponent: unit test', () => {
-  const currentCount = 123;
-
-  let fixture: ComponentFixture<StandaloneServiceCounterComponent>;
-  // Declare shared variable
-  let fakeCounterService: CounterService;
-
-  beforeEach(async () => {
-    // Create fake
-    fakeCounterService = jasmine.createSpyObj<CounterService>('CounterService', {
-      getCount: of(currentCount),
-      increment: undefined,
-      decrement: undefined,
-      reset: undefined,
-    });
-
-    await TestBed.configureTestingModule({
-      imports: [StandaloneServiceCounterComponent],
-      // Use fake instead of original
-      providers: [{ provide: CounterService, useValue: fakeCounterService }],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(StandaloneServiceCounterComponent);
-    fixture.detectChanges();
-  });
-
-  it('shows the count', () => {
-    expectText(fixture, 'count', String(currentCount));
-    expect(fakeCounterService.getCount).toHaveBeenCalled();
-  });
-
-  it('increments the count', () => {
-    click(fixture, 'increment-button');
-    expect(fakeCounterService.increment).toHaveBeenCalled();
-  });
-
-  it('decrements the count', () => {
-    click(fixture, 'decrement-button');
-    expect(fakeCounterService.decrement).toHaveBeenCalled();
-  });
-
-  it('resets the count', () => {
-    const newCount = 456;
-    setFieldValue(fixture, 'reset-input', String(newCount));
-    click(fixture, 'reset-button');
-    expect(fakeCounterService.reset).toHaveBeenCalledWith(newCount);
-  });
-});
-
-describe('StandaloneServiceCounterComponent: unit test with minimal Service logic', () => {
+describe('StandaloneServiceCounterComponent: fake Service', () => {
   const newCount = 456;
 
   let fixture: ComponentFixture<StandaloneServiceCounterComponent>;
@@ -118,23 +56,19 @@ describe('StandaloneServiceCounterComponent: unit test with minimal Service logi
     fakeCount$ = new BehaviorSubject(0);
 
     fakeCounterService = {
-      getCount(): Observable<number> {
+      getCount() {
         return fakeCount$;
       },
-      increment(): void {
+      increment() {
         fakeCount$.next(1);
       },
-      decrement(): void {
+      decrement() {
         fakeCount$.next(-1);
       },
-      reset(): void {
+      reset() {
         fakeCount$.next(Number(newCount));
       },
     };
-    spyOn(fakeCounterService, 'getCount').and.callThrough();
-    spyOn(fakeCounterService, 'increment').and.callThrough();
-    spyOn(fakeCounterService, 'decrement').and.callThrough();
-    spyOn(fakeCounterService, 'reset').and.callThrough();
 
     await TestBed.configureTestingModule({
       imports: [StandaloneServiceCounterComponent],
@@ -147,7 +81,6 @@ describe('StandaloneServiceCounterComponent: unit test with minimal Service logi
 
   it('shows the start count', () => {
     expectText(fixture, 'count', '0');
-    expect(fakeCounterService.getCount).toHaveBeenCalled();
   });
 
   it('increments the count', () => {
@@ -155,7 +88,6 @@ describe('StandaloneServiceCounterComponent: unit test with minimal Service logi
     fixture.detectChanges();
 
     expectText(fixture, 'count', '1');
-    expect(fakeCounterService.increment).toHaveBeenCalled();
   });
 
   it('decrements the count', () => {
@@ -163,7 +95,6 @@ describe('StandaloneServiceCounterComponent: unit test with minimal Service logi
     fixture.detectChanges();
 
     expectText(fixture, 'count', '-1');
-    expect(fakeCounterService.decrement).toHaveBeenCalled();
   });
 
   it('resets the count', () => {
@@ -172,7 +103,6 @@ describe('StandaloneServiceCounterComponent: unit test with minimal Service logi
     fixture.detectChanges();
 
     expectText(fixture, 'count', String(newCount));
-    expect(fakeCounterService.reset).toHaveBeenCalledWith(newCount);
   });
 
   it('does not reset if the value is not a number', () => {
@@ -180,6 +110,6 @@ describe('StandaloneServiceCounterComponent: unit test with minimal Service logi
     setFieldValue(fixture, 'reset-input', value);
     click(fixture, 'reset-button');
 
-    expect(fakeCounterService.reset).not.toHaveBeenCalled();
+    expectText(fixture, 'count', '0');
   });
 });

@@ -8,7 +8,7 @@ import { CounterService } from '../../services/counter.service';
 
 @Component({
   standalone: true,
-  selector: 'app-service-counter',
+  selector: 'app-standalone-service-counter',
   imports: [CommonModule],
   templateUrl: './standalone-service-counter.component.html',
   styleUrls: ['./standalone-service-counter.component.css'],
