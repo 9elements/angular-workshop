@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { BehaviorSubject, Observable, of } from 'rxjs';
 
 import { CounterService } from '../../services/counter.service';
@@ -6,7 +7,6 @@ import { click, expectText, setFieldValue } from '../../spec-helpers/element.spe
 import { ServiceCounterComponent } from './service-counter.component';
 
 describe('ServiceCounterComponent: integration test', () => {
-  let component: ServiceCounterComponent;
   let fixture: ComponentFixture<ServiceCounterComponent>;
 
   beforeEach(async () => {
@@ -16,7 +16,6 @@ describe('ServiceCounterComponent: integration test', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(ServiceCounterComponent);
-    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
@@ -48,7 +47,6 @@ describe('ServiceCounterComponent: integration test', () => {
 describe('ServiceCounterComponent: unit test', () => {
   const currentCount = 123;
 
-  let component: ServiceCounterComponent;
   let fixture: ComponentFixture<ServiceCounterComponent>;
   // Declare shared variable
   let fakeCounterService: CounterService;
@@ -69,7 +67,6 @@ describe('ServiceCounterComponent: unit test', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(ServiceCounterComponent);
-    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
@@ -109,16 +106,16 @@ describe('ServiceCounterComponent: unit test with minimal Service logic', () => 
     fakeCount$ = new BehaviorSubject(0);
 
     fakeCounterService = {
-      getCount(): Observable<number> {
+      getCount() {
         return fakeCount$;
       },
-      increment(): void {
+      increment() {
         fakeCount$.next(1);
       },
-      decrement(): void {
+      decrement() {
         fakeCount$.next(-1);
       },
-      reset(): void {
+      reset() {
         fakeCount$.next(Number(newCount));
       },
     };

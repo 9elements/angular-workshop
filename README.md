@@ -38,7 +38,7 @@ Run `ng run angular-workshop:cypress-open` to start the interactive Cypress test
 
 ### Protractor
 
-Run `ng e2e` to execute Cypress end-to-end tests. (This starts the development server automatically.)
+Run `ng e2e` to execute the Protractor end-to-end tests. (This starts the development server automatically.)
 
 ## Deployment
 
