@@ -38,7 +38,7 @@ Run `ng run angular-workshop:cypress-open` to start the interactive Cypress test
 
 ### Protractor
 
-Start the development server first. Then run `ng protractor` to execute the Protractor end-to-end tests.
+Start the development server first. Then run `npm run protractor` to execute the Protractor end-to-end tests.
 
 It might be necessary to download the browser drivers before:
 
