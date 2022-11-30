@@ -38,8 +38,14 @@ Run `ng run angular-workshop:cypress-open` to start the interactive Cypress test
 
 ### Protractor
 
-Run `ng e2e` to execute the Protractor end-to-end tests. (This starts the development server automatically.)
+Start the development server first. Then run `ng protractor` to execute the Protractor end-to-end tests.
+
+It might be necessary to download the browser drivers before:
+
+```
+npx webdriver-manager update
+```
 
 ## Deployment
 
-Run `ng deploy --base-href=/angular-workshop/` to the deploy the code to [https://9elements.github.io/angular-workshop/].
+Run `npm run deploy` to the deploy the code to [https://9elements.github.io/angular-workshop/].

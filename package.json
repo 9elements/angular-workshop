@@ -7,10 +7,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "e2e:dev": "ng e2e --dev-server-target= --no-webdriver-update",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
+    "protractor": "protractor e2e/protractor.conf.js",
     "deploy": "ng deploy --base-href=/angular-workshop/"
   },
   "private": true,
