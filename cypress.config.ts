@@ -4,5 +4,6 @@ export default defineConfig({
   e2e: {
     baseUrl: 'http://localhost:4200',
     video: false,
+    experimentalRunAllSpecs: true,
   },
 });

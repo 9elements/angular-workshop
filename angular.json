@@ -94,18 +94,6 @@
             "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "angular-workshop:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "angular-workshop:serve:production"
-            }
-          }
-        },
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
           "options": {}
@@ -127,13 +115,26 @@
             "watch": true,
             "headless": false
           }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "angular-workshop:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "angular-workshop:serve:production"
+            }
+          }
         }
       }
     }
   },
   "cli": {
-    "schematicCollections": ["@angular-eslint/schematics"],
-    "analytics": false
+    "analytics": false,
+    "schematicCollections": ["@cypress/schematic", "@schematics/angular"]
   },
   "schematics": {
     "@angular-eslint/schematics:application": {
