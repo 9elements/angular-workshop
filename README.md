@@ -28,18 +28,12 @@ This repository builds a simple counter with Angular in three ways:
 
 Run `ng test` to execute the unit & integration tests with Karma and Jasmine.
 
-## Running end-to-end tests
-
-### Cypress
+## Running end-to-end tests with Cypress
 
 Run `ng run angular-workshop:cypress-run` to execute the Cypress end-to-end tests. (This starts the development server automatically.)
 
 Run `ng run angular-workshop:cypress-open` to start the interactive Cypress test runner.
 
-### Protractor
-
-Run `ng e2e` to execute the Protractor end-to-end tests. (This starts the development server automatically.)
-
 ## Deployment
 
-Run `ng deploy --base-href=/angular-workshop/` to the deploy the code to [https://9elements.github.io/angular-workshop/].
+Run `npm run deploy` to the deploy the code to [https://9elements.github.io/angular-workshop/].

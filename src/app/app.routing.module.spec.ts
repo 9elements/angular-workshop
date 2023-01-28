@@ -1,16 +1,32 @@
-import { APP_BASE_HREF, Location } from '@angular/common';
-import { Component, forwardRef, Type } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  APP_BASE_HREF,
+  Location,
+} from '@angular/common';
+import { Type } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Router, Routes } from '@angular/router';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { AppRoutingModule, routes } from './app.routing.module';
+import { provideMockStore } from '@ngrx/store/testing';
+
+import { AppComponent } from './app.component';
+import {
+  AppRoutingModule,
+  routes,
+} from './app.routing.module';
 import { CounterComponent } from './components/counter/counter.component';
 import { HomeComponent } from './components/home/home.component';
-import { NgRxCounterComponent } from './components/ngrx-counter/ngrx-counter.component';
-import { ServiceCounterComponent } from './components/service-counter/service-counter.component';
-import { findComponent } from './spec-helpers/element.spec-helper';
+import {
+  NgRxCounterComponent,
+} from './components/ngrx-counter/ngrx-counter.component';
+import {
+  ServiceCounterComponent,
+} from './components/service-counter/service-counter.component';
+import { CounterService } from './services/counter.service';
 
 describe('AppRoutingModule', () => {
   beforeEach(() => {
@@ -26,34 +42,8 @@ describe('AppRoutingModule', () => {
   });
 });
 
-@Component({
-  template: '<router-outlet></router-outlet>',
-})
-class RouterOutletComponent {}
-
-function fakeComponent<T>(component: Type<T>): Type<T> {
-  @Component({
-    providers: [
-      {
-        provide: component,
-        useExisting: forwardRef(() => FakeComponent),
-      },
-    ],
-  })
-  class FakeComponent {}
-
-  return FakeComponent as Type<T>;
-}
-
-// Replace all components in the routes with a fake
-const fakeRoutes: Routes = routes.map((route) => ({
-  ...route,
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  component: fakeComponent(route.component!),
-}));
-
 describe('AppRoutingModule: routes', () => {
-  let fixture: ComponentFixture<RouterOutletComponent>;
+  let fixture: ComponentFixture<AppComponent>;
   let router: Router;
   let location: Location;
 
@@ -63,8 +53,9 @@ describe('AppRoutingModule: routes', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes(fakeRoutes)],
-      declarations: [RouterOutletComponent],
+      imports: [RouterTestingModule.withRoutes(routes)],
+      declarations: [AppComponent],
+      providers: [CounterService, provideMockStore({ initialState: { counter: 5 } })],
     }).compileComponents();
   });
 
@@ -72,45 +63,37 @@ describe('AppRoutingModule: routes', () => {
     router = TestBed.inject(Router);
     location = TestBed.inject(Location);
 
-    fixture = TestBed.createComponent(RouterOutletComponent);
-
-    // Fixes necessary for https://github.com/angular/angular/issues/25837
+    fixture = TestBed.createComponent(AppComponent);
 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     fixture.ngZone!.run(() => {
       router.initialNavigation();
     });
-
-    const originalNavigate = router.navigate;
-    router.navigate = (commands, extras) => {
-      let promise: Promise<boolean> = Promise.resolve(false);
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      fixture.ngZone!.run(() => {
-        promise = originalNavigate.call(router, commands, extras);
-      });
-      return promise;
-    };
   });
 
   it('routes / to the HomeComponent', async () => {
     await router.navigate(['']);
+    fixture.detectChanges();
     expectComponent(HomeComponent);
   });
 
   it('routes /counter-component', async () => {
     await router.navigate(['counter-component']);
+    fixture.detectChanges();
     expect(location.path()).toBe('/counter-component');
     expectComponent(CounterComponent);
   });
 
   it('routes /service-counter-component', async () => {
     await router.navigate(['service-counter-component']);
+    fixture.detectChanges();
     expect(location.path()).toBe('/service-counter-component');
     expectComponent(ServiceCounterComponent);
   });
 
   it('routes /ngrx-counter-component', async () => {
     await router.navigate(['ngrx-counter-component']);
+    fixture.detectChanges();
     expect(location.path()).toBe('/ngrx-counter-component');
     expectComponent(NgRxCounterComponent);
   });
